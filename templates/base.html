@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MysteryBox – The Detective Game{% endblock %}</title>
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <a href="{{ url_for('index') }}" class="brand-link">
+            <div class="brand-logo-icon">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <div class="brand-text">
+                <h1>MysteryBox</h1>
+                <span>Bureau of Criminal Investigation</span>
+            </div>
+        </a>
+
+        <div class="nav-actions">
+            <button id="soundToggleBtn" class="sound-toggle-btn" title="Toggle audio synthesis">
+                <i class="fa-solid fa-volume-high"></i>
+                <span>Sound On</span>
+                <span class="sound-active-dot"></span>
+            </button>
+            <a href="{{ url_for('index') }}" class="btn-action-sm">
+                <i class="fa-solid fa-folder-closed"></i>
+                <span>Case Archives</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Dynamic Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
