@@ -13,59 +13,57 @@
             </div>
             <h2>{{ case['title'] }}</h2>
             <div class="case-header-details">
-                <span><i class="fa-solid fa-location-dot"></i> {{ case['location'] }}</span>
-                <span><i class="fa-regular fa-clock"></i> {{ case['incident_time'] }}</span>
-                <span><i class="fa-solid fa-user-tag"></i> Target/Victim: {{ case['victim'] }} ({{ case['victim_role'] }})</span>
+                <span><i class="fa-solid fa-location-dot"></i> Where: {{ case['location'] }}</span>
+                <span><i class="fa-regular fa-clock"></i> Time: {{ case['incident_time'] }}</span>
+                <span><i class="fa-solid fa-user-tag"></i> Victim: {{ case['victim'] }} ({{ case['victim_role'] }})</span>
             </div>
         </div>
 
         <div class="case-header-actions">
             <button class="btn-accuse" onclick="openAccusationModal()">
-                <i class="fa-solid fa-gavel"></i>
-                <span>File Indictment (Accuse)</span>
+                <i class="fa-solid fa-handcuffs"></i>
+                <span>CATCH THE THIEF! (ACCUSE)</span>
             </button>
         </div>
     </div>
 </div>
 
-<!-- Investigation Tabs -->
+<!-- Investigation Tabs (Simple Names) -->
 <nav class="investigation-nav">
     <button class="nav-tab-btn active" data-tab="tab-clues">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <span>Scenes & Evidence</span>
+        <span>1. Clues & Rooms</span>
         <span class="tab-badge" id="cluesCountBadge">{{ clues|length }}</span>
     </button>
     <button class="nav-tab-btn" data-tab="tab-suspects">
         <i class="fa-solid fa-users"></i>
-        <span>Interrogation Room</span>
+        <span>2. Talk to Suspects</span>
         <span class="tab-badge" id="suspectsCountBadge">{{ suspects|length }}</span>
     </button>
     <button class="nav-tab-btn" data-tab="tab-corkboard">
         <i class="fa-solid fa-thumbtack"></i>
-        <span>Evidence Corkboard</span>
+        <span>3. Clue Board</span>
     </button>
     <button class="nav-tab-btn" data-tab="tab-notebook">
         <i class="fa-solid fa-book"></i>
-        <span>Field Notebook</span>
+        <span>4. My Notes</span>
     </button>
 </nav>
 
 <!-- Tab Content Area -->
 <div class="tab-content-area">
 
-    <!-- ==============================================
-         TAB 1: SCENES & CLUES
-         ============================================== -->
+    <!-- TAB 1: CLUES & ROOMS -->
     <div id="tab-clues" class="tab-pane active">
-        <!-- Crime Scenes Selection -->
+        <!-- Rooms -->
         <h3 style="font-family:var(--font-title); font-size:1.15rem; color:#fff; margin-bottom:0.75rem;">
-            <i class="fa-solid fa-map-location-dot" style="color:var(--accent-gold);"></i> Crime Scene Locations
+            <i class="fa-solid fa-map-location-dot" style="color:var(--accent-gold);"></i> Click a Room to Filter Clues:
         </h3>
         <div class="scenes-grid">
             <div class="scene-card active" data-scene-id="all">
-                <div class="scene-card-icon"><i class="fa-solid fa-building-shield"></i></div>
-                <div class="scene-card-title">All Areas</div>
-                <div class="scene-card-desc">Show all collected evidence and forensic findings across the entire estate.</div>
+                <div class="scene-card-icon"><i class="fa-solid fa-house"></i></div>
+                <div class="scene-card-title">All Rooms</div>
+                <div class="scene-card-desc">Show all clues found everywhere in the house.</div>
             </div>
             {% for scene in scenes %}
             <div class="scene-card" data-scene-id="{{ scene['id'] }}">
@@ -79,7 +77,7 @@
         <!-- Evidence Gallery -->
         <div class="evidence-section-header">
             <h3 style="font-family:var(--font-title); font-size:1.15rem; color:#fff;">
-                <i class="fa-solid fa-box-archive" style="color:var(--accent-gold);"></i> Collected Forensic & Physical Evidence
+                <i class="fa-solid fa-box-archive" style="color:var(--accent-gold);"></i> Clues Found:
             </h3>
         </div>
 
@@ -95,17 +93,17 @@
                 <h4 class="clue-title">{{ clue['title'] }}</h4>
                 <div class="clue-short-desc">{{ clue['short_desc'] }}</div>
                 <div class="clue-analysis-box">
-                    <strong>LAB REPORT:</strong> {{ clue['full_analysis'] }}
+                    <strong>SECRET DETAILS:</strong> {{ clue['full_analysis'] }}
                 </div>
                 <div class="clue-card-footer">
                     {% if clue['is_key_evidence'] %}
-                    <span style="font-size:0.75rem; color:var(--accent-gold); font-weight:600;"><i class="fa-solid fa-star"></i> Critical Clue</span>
+                    <span style="font-size:0.75rem; color:var(--accent-gold); font-weight:600;"><i class="fa-solid fa-star"></i> Big Clue!</span>
                     {% else %}
                     <span></span>
                     {% endif %}
                     <button class="btn-inspect-clue" onclick="openClueMagnifier('{{ clue['id'] }}')">
                         <i class="fa-solid fa-magnifying-glass-plus"></i>
-                        <span>Inspect</span>
+                        <span>Inspect Clue</span>
                     </button>
                 </div>
             </div>
@@ -113,25 +111,22 @@
         </div>
     </div>
 
-    <!-- ==============================================
-         TAB 2: PERSONS OF INTEREST & INTERROGATION
-         ============================================== -->
+    <!-- TAB 2: TALK TO SUSPECTS -->
     <div id="tab-suspects" class="tab-pane">
         <div class="interrogation-layout">
             <!-- Left: Suspect Roster -->
             <div class="suspects-list-pane">
                 <h3 style="font-family:var(--font-title); font-size:1.1rem; color:#fff; margin-bottom:0.5rem;">
-                    <i class="fa-solid fa-user-secret" style="color:var(--accent-gold);"></i> Persons of Interest
+                    <i class="fa-solid fa-user-secret" style="color:var(--accent-gold);"></i> Click a Person to Talk:
                 </h3>
                 {% for suspect in suspects %}
                 <div class="suspect-selectable-card" data-suspect-id="{{ suspect['id'] }}">
                     <div class="suspect-avatar-circle">
-                        <!-- Emoji avatar rendered via JS -->
                         <span class="avatar-icon-placeholder" data-avatar="{{ suspect['avatar_svg'] }}">👤</span>
                     </div>
                     <div class="suspect-card-info">
                         <h4>{{ suspect['name'] }}</h4>
-                        <div class="suspect-card-role">{{ suspect['role'] }} · {{ suspect['age'] }} yrs</div>
+                        <div class="suspect-card-role">{{ suspect['role'] }} · {{ suspect['age'] }} years old</div>
                     </div>
                 </div>
                 {% endfor %}
@@ -142,15 +137,15 @@
                 <div class="interrogation-suspect-profile">
                     <div class="profile-avatar-lg" id="interrogateAvatar">👤</div>
                     <div class="profile-meta">
-                        <h3 id="interrogateName">Select a Suspect</h3>
-                        <span class="role-pill" id="interrogateRole">Dossier</span>
-                        <p id="interrogateBio">Select a person of interest from the left panel to begin interrogation.</p>
+                        <h3 id="interrogateName">Select a Person</h3>
+                        <span class="role-pill" id="interrogateRole">Profile</span>
+                        <p id="interrogateBio">Click any person on the left to ask them questions.</p>
                     </div>
                 </div>
 
                 <!-- Suspect Alibi Claim -->
                 <div class="alibi-statement-box">
-                    <h5><i class="fa-solid fa-shield-halved"></i> Initial Alibi Claim:</h5>
+                    <h5><i class="fa-solid fa-shield-halved"></i> What They Say Happened:</h5>
                     <p id="interrogateAlibi">"..."</p>
                 </div>
 
@@ -161,7 +156,7 @@
 
                 <!-- Interrogation Controls -->
                 <div class="interrogation-controls">
-                    <div class="questions-selector-title">Available Lines of Questioning:</div>
+                    <div class="questions-selector-title">Questions You Can Ask:</div>
                     <div class="questions-grid" id="questionsGrid">
                         <!-- Question buttons injected via JS -->
                     </div>
@@ -169,11 +164,11 @@
                     <!-- Present Evidence to Call Out Contradictions -->
                     <div class="evidence-present-bar">
                         <select id="presentEvidenceSelect" class="select-evidence-dropdown">
-                            <option value="">-- Choose Evidence to Confront With --</option>
+                            <option value="">-- Pick a Clue to Catch Their Lie --</option>
                         </select>
                         <button class="btn-present-clue" onclick="presentEvidence()">
                             <i class="fa-solid fa-bolt"></i>
-                            <span>Confront Suspect</span>
+                            <span>Catch in a Lie!</span>
                         </button>
                     </div>
                 </div>
@@ -181,32 +176,28 @@
         </div>
     </div>
 
-    <!-- ==============================================
-         TAB 3: EVIDENCE CORKBOARD
-         ============================================== -->
+    <!-- TAB 3: EVIDENCE CORKBOARD -->
     <div id="tab-corkboard" class="tab-pane">
         <div class="corkboard-wrapper">
-            <div class="corkboard-header-tape">DETECTIVE INVESTIGATION PINBOARD</div>
+            <div class="corkboard-header-tape">DETECTIVE CLUE PINBOARD</div>
             <div class="corkboard-grid" id="corkboardGrid">
                 <!-- Pinned notes injected via JS -->
             </div>
         </div>
     </div>
 
-    <!-- ==============================================
-         TAB 4: DETECTIVE FIELD NOTEBOOK
-         ============================================== -->
+    <!-- TAB 4: MY NOTES -->
     <div id="tab-notebook" class="tab-pane">
         <div class="notebook-wrapper">
             <div class="notebook-header">
-                <h3><i class="fa-solid fa-pen-nib" style="color:var(--accent-gold);"></i> Detective's Pocket Log</h3>
-                <span style="font-size:0.8rem; color:var(--text-muted); font-family:var(--font-typewriter);">TIMESTAMPED ENTRIES</span>
+                <h3><i class="fa-solid fa-pen-nib" style="color:var(--accent-gold);"></i> My Investigation Notes</h3>
+                <span style="font-size:0.8rem; color:var(--text-muted); font-family:var(--font-typewriter);">SAVED NOTES</span>
             </div>
 
             <div class="notebook-input-row">
-                <input type="text" id="noteTextInput" class="notebook-input" placeholder="Record a deduction, timeline note, or suspicion..." onkeydown="if(event.key==='Enter') addDetectiveNote()">
+                <input type="text" id="noteTextInput" class="notebook-input" placeholder="Type what you suspect here..." onkeydown="if(event.key==='Enter') addDetectiveNote()">
                 <button class="btn-add-note" onclick="addDetectiveNote()">
-                    <i class="fa-solid fa-plus"></i> Log Note
+                    <i class="fa-solid fa-plus"></i> Save Note
                 </button>
             </div>
 
@@ -222,69 +213,65 @@
 
 </div>
 
-<!-- ==============================================
-     MODAL: CLUE MAGNIFIER
-     ============================================== -->
+<!-- MODAL: CLUE MAGNIFIER -->
 <div class="modal-backdrop" id="clueMagnifierModal">
     <div class="evidence-magnifier-box">
         <button class="btn-close-modal" onclick="closeClueMagnifier()">&times;</button>
         <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.75rem;">
-            <div class="badge-stamp">EVIDENCE ARCHIVE</div>
-            <span id="modalClueCategory" class="badge-tag" style="background:#242936; color:#38bdf8;">Forensic</span>
+            <div class="badge-stamp">CLUE INSPECTION</div>
+            <span id="modalClueCategory" class="badge-tag" style="background:#242936; color:#38bdf8;">Evidence</span>
         </div>
         <h3 id="modalClueTitle" style="font-family:var(--font-title); font-size:1.35rem; color:#fff; margin-bottom:0.5rem;"></h3>
         <p id="modalClueDesc" style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1.25rem;"></p>
         
         <div style="background:#0f1218; border:1px solid var(--accent-gold); border-radius:8px; padding:1.25rem; margin-bottom:1.5rem;">
             <div style="color:var(--accent-gold); font-size:0.8rem; font-family:var(--font-title); text-transform:uppercase; letter-spacing:1px; margin-bottom:0.4rem;">
-                <i class="fa-solid fa-microscope"></i> Crime Lab Forensic Report
+                <i class="fa-solid fa-magnifying-glass"></i> Secret Clue Details:
             </div>
             <div id="modalClueAnalysis" style="font-family:var(--font-typewriter); color:#e2e8f0; font-size:0.88rem; line-height:1.6;"></div>
         </div>
 
         <div style="text-align:right;">
-            <button class="btn-action-sm" style="display:inline-flex;" onclick="closeClueMagnifier()">Close Magnifier</button>
+            <button class="btn-action-sm" style="display:inline-flex;" onclick="closeClueMagnifier()">Close</button>
         </div>
     </div>
 </div>
 
-<!-- ==============================================
-     MODAL: INDICTMENT / ACCUSATION WARRANT
-     ============================================== -->
+<!-- MODAL: ACCUSATION / CATCH THE THIEF -->
 <div class="modal-backdrop" id="accusationModal">
     <div class="modal-box">
         <div class="modal-header-banner">
             <button class="btn-close-modal" onclick="closeAccusationModal()">&times;</button>
-            <h3><i class="fa-solid fa-scale-unbalanced"></i> Official Grand Jury Indictment</h3>
-            <p>You are about to issue a formal arrest warrant. You must present conclusive proof to secure a conviction.</p>
+            <h3><i class="fa-solid fa-handcuffs"></i> Catch the Guilty Person!</h3>
+            <p>Pick the person who did it, how they did it, and the clue that proves it!</p>
         </div>
 
         <form id="indictmentForm" onsubmit="submitIndictment(event)">
             <div class="modal-body">
                 <div class="indictment-field">
-                    <label for="accusedSuspectSelect"><i class="fa-solid fa-user-xmark" style="color:var(--accent-crimson);"></i> 1. The Prime Culprit</label>
+                    <label for="accusedSuspectSelect"><i class="fa-solid fa-user-xmark" style="color:var(--accent-crimson);"></i> 1. Who is the Guilty Person?</label>
                     <select id="accusedSuspectSelect" required>
-                        <option value="">-- Choose Prime Suspect --</option>
+                        <option value="">-- Choose Person --</option>
                     </select>
                 </div>
 
                 <div class="indictment-field">
-                    <label for="accusedWeaponSelect"><i class="fa-solid fa-wrench" style="color:var(--accent-gold);"></i> 2. The Weapon or Method Used</label>
+                    <label for="accusedWeaponSelect"><i class="fa-solid fa-wrench" style="color:var(--accent-gold);"></i> 2. How Did They Do It?</label>
                     <select id="accusedWeaponSelect" required>
-                        <option value="">-- Choose Weapon / Mechanism --</option>
+                        <option value="">-- Choose Weapon or Method --</option>
                     </select>
                 </div>
 
                 <div class="indictment-field">
-                    <label for="accusedProofSelect"><i class="fa-solid fa-fingerprint" style="color:var(--accent-blue);"></i> 3. Decisive Irrefutable Evidence</label>
+                    <label for="accusedProofSelect"><i class="fa-solid fa-fingerprint" style="color:var(--accent-blue);"></i> 3. Which Clue Proves They Are Lying?</label>
                     <select id="accusedProofSelect" required>
-                        <option value="">-- Choose Decisive Proof That Destroys Their Defense --</option>
+                        <option value="">-- Choose the Best Clue --</option>
                     </select>
                 </div>
 
                 <div class="indictment-field">
-                    <label for="accusedMotiveText"><i class="fa-solid fa-brain" style="color:#c084fc;"></i> 4. Detective's Motive Summary</label>
-                    <textarea id="accusedMotiveText" rows="3" placeholder="Summarize why they committed the crime and how they planned to get away with it..." style="resize:vertical;"></textarea>
+                    <label for="accusedMotiveText"><i class="fa-solid fa-brain" style="color:#c084fc;"></i> 4. Why Did They Do It? (Optional Note)</label>
+                    <textarea id="accusedMotiveText" rows="2" placeholder="e.g. They wanted money, revenge, or to sell the jewel..." style="resize:vertical;"></textarea>
                 </div>
             </div>
 
@@ -292,16 +279,14 @@
                 <button type="button" class="btn-action-sm" onclick="closeAccusationModal()">Cancel</button>
                 <button type="submit" class="btn-submit-indictment">
                     <i class="fa-solid fa-handcuffs"></i>
-                    <span>Execute Arrest Warrant</span>
+                    <span>Arrest Them Now!</span>
                 </button>
             </div>
         </form>
     </div>
 </div>
 
-<!-- ==============================================
-     MODAL: CINEMATIC VERDICT
-     ============================================== -->
+<!-- MODAL: VERDICT REVEAL -->
 <div class="modal-backdrop" id="verdictModal">
     <div class="verdict-box">
         <div class="verdict-header" id="verdictHeader">
@@ -312,22 +297,22 @@
 
         <div class="verdict-body">
             <div style="font-size:0.8rem; text-transform:uppercase; color:var(--accent-gold); letter-spacing:1px; font-weight:700;">
-                <i class="fa-solid fa-quote-left"></i> Suspect's Statement:
+                <i class="fa-solid fa-quote-left"></i> Suspect Confession:
             </div>
             <div class="verdict-confession-quote" id="verdictConfessionQuote"></div>
 
             <div style="font-size:0.8rem; text-transform:uppercase; color:var(--text-muted); letter-spacing:1px; font-weight:700;">
-                <i class="fa-solid fa-file-contract"></i> Case Debriefing:
+                <i class="fa-solid fa-file-contract"></i> What Really Happened:
             </div>
             <div class="verdict-narrative" id="verdictNarrative"></div>
         </div>
 
         <div class="verdict-footer">
             <button class="btn-action-sm" onclick="closeVerdictModal()">
-                <i class="fa-solid fa-rotate-left"></i> Review Case File
+                <i class="fa-solid fa-rotate-left"></i> Look at Case Again
             </button>
             <a href="{{ url_for('index') }}" class="btn-open-dossier">
-                <i class="fa-solid fa-folder-closed"></i> Return to Bureau Archives
+                <i class="fa-solid fa-folder-closed"></i> Back to All Cases
             </a>
         </div>
     </div>
@@ -337,13 +322,10 @@
 {% block scripts %}
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Set emojis in initial suspect list
         document.querySelectorAll('.avatar-icon-placeholder').forEach(el => {
             const avatarKey = el.dataset.avatar;
             el.textContent = getAvatarEmoji(avatarKey);
         });
-
-        // Initialize case
         initCaseInvestigation("{{ case['id'] }}");
     });
 </script>

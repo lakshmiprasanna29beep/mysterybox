@@ -357,7 +357,7 @@ function setupEvidenceDropdown() {
     const dropdown = document.getElementById('presentEvidenceSelect');
     if (!dropdown || !caseData || !caseData.clues) return;
 
-    dropdown.innerHTML = '<option value="">-- Choose Evidence to Confront With --</option>';
+    dropdown.innerHTML = '<option value="">-- Pick a Clue to Catch Their Lie --</option>';
     caseData.clues.forEach(clue => {
         if (discoveredClues.has(clue.id)) {
             const opt = document.createElement('option');
@@ -371,14 +371,14 @@ function setupEvidenceDropdown() {
 // Present evidence to suspect
 async function presentEvidence() {
     if (!activeSuspectId) {
-        showToast("Select a suspect to interrogate first.", "error");
+        showToast("Click on a person to talk to first.", "error");
         return;
     }
 
     const dropdown = document.getElementById('presentEvidenceSelect');
     const clueId = dropdown.value;
     if (!clueId) {
-        showToast("Select a piece of evidence to present.", "error");
+        showToast("Pick a clue from the dropdown first.", "error");
         return;
     }
 
@@ -400,7 +400,7 @@ async function presentEvidence() {
             const detBubble = document.createElement('div');
             detBubble.className = 'dialogue-bubble detective';
             detBubble.innerHTML = `
-                <span class="bubble-speaker">Detective [OBJECTION]</span>
+                <span class="bubble-speaker">Detective [CAUGHT YOU IN A LIE!]</span>
                 <div class="bubble-text" style="background:#b91c1c;">${data.callout_text}</div>
             `;
             historyBox.appendChild(detBubble);
@@ -409,7 +409,7 @@ async function presentEvidence() {
             const suspBubble = document.createElement('div');
             suspBubble.className = 'dialogue-bubble suspect contradiction-break';
             suspBubble.innerHTML = `
-                <span class="bubble-speaker">${data.suspect_name} [CAUGHT IN LIE!]</span>
+                <span class="bubble-speaker">${data.suspect_name} [PANICKING]</span>
                 <div class="bubble-text">"${data.suspect_response}"</div>
             `;
             historyBox.appendChild(suspBubble);
@@ -420,11 +420,11 @@ async function presentEvidence() {
             if (suspectCard && !suspectCard.querySelector('.alibi-broken-stamp')) {
                 const stamp = document.createElement('div');
                 stamp.className = 'alibi-broken-stamp';
-                stamp.textContent = 'ALIBI DISPROVEN';
+                stamp.textContent = 'CAUGHT IN A LIE!';
                 suspectCard.querySelector('.suspect-card-info').appendChild(stamp);
             }
 
-            showToast(`CONTRADICTION EXPOSED! ${data.suspect_name}'s alibi has shattered!`, 'success');
+            showToast(`CAUGHT IN A LIE! ${data.suspect_name}'s story is ruined!`, 'success');
             renderCorkboard();
 
         } else {
@@ -446,7 +446,7 @@ async function presentEvidence() {
             `;
             historyBox.appendChild(suspBubble);
             historyBox.scrollTop = historyBox.scrollHeight;
-            showToast("The suspect brushed aside your evidence.", "error");
+            showToast("That clue didn't prove they were lying. Try another clue!", "error");
         }
 
     } catch (e) {
@@ -471,8 +471,8 @@ function renderCorkboard() {
             <div class="pin-card-title">${getAvatarEmoji(s.avatar_svg)} ${s.name}</div>
             <div class="pin-card-body">
                 <strong>Role:</strong> ${s.role}<br>
-                <strong>Alibi:</strong> ${s.alibi_claim}<br>
-                ${isBroken ? '<strong style="color:var(--accent-crimson);">⚠️ ALIBI DEBUNKED BY FORENSICS</strong>' : '<span style="color:var(--text-dim);">Status: Under Investigation</span>'}
+                <strong>What they said:</strong> ${s.alibi_claim}<br>
+                ${isBroken ? '<strong style="color:var(--accent-crimson);">⚠️ CAUGHT IN A LIE!</strong>' : '<span style="color:var(--text-dim);">Status: Suspect</span>'}
             </div>
         `;
         grid.appendChild(card);
@@ -538,7 +538,7 @@ function setupIndictmentForm() {
     const proofSelect = document.getElementById('accusedProofSelect');
 
     if (suspectSelect) {
-        suspectSelect.innerHTML = '<option value="">-- Choose Prime Suspect --</option>';
+        suspectSelect.innerHTML = '<option value="">-- Choose Person --</option>';
         caseData.suspects.forEach(s => {
             const opt = document.createElement('option');
             opt.value = s.id;
@@ -548,7 +548,7 @@ function setupIndictmentForm() {
     }
 
     if (weaponSelect) {
-        weaponSelect.innerHTML = '<option value="">-- Choose Murder Weapon / Method --</option>';
+        weaponSelect.innerHTML = '<option value="">-- Choose Weapon or Method --</option>';
         caseData.clues.forEach(c => {
             const opt = document.createElement('option');
             opt.value = c.id;
@@ -558,7 +558,7 @@ function setupIndictmentForm() {
     }
 
     if (proofSelect) {
-        proofSelect.innerHTML = '<option value="">-- Choose Decisive Proof That Traps Them --</option>';
+        proofSelect.innerHTML = '<option value="">-- Choose Clue That Proves Guilt --</option>';
         caseData.clues.forEach(c => {
             const opt = document.createElement('option');
             opt.value = c.id;
@@ -578,7 +578,7 @@ async function submitIndictment(event) {
     const motiveText = document.getElementById('accusedMotiveText').value;
 
     if (!suspectId || !weaponId || !proofId) {
-        showToast("Complete all required fields on the indictment warrant.", "error");
+        showToast("Please choose the person, method, and proof clue.", "error");
         return;
     }
 

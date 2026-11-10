@@ -12,8 +12,8 @@ def init_db():
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    # Enable foreign keys
-    cursor.execute("PRAGMA foreign_keys = ON;")
+    # Disable foreign keys temporarily while dropping and recreating tables
+    cursor.execute("PRAGMA foreign_keys = OFF;")
 
     cursor.executescript("""
     DROP TABLE IF EXISTS case_solutions;

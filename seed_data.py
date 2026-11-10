@@ -6,24 +6,24 @@ def seed():
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    # ==========================================
-    # CASE 1: The Blackwood Sapphire Heist
-    # ==========================================
+    # =========================================================
+    # CASE 1: The Stolen Blue Diamond (Super Simple English)
+    # =========================================================
     cursor.execute("""
     INSERT INTO cases (id, title, tagline, difficulty, case_number, location, incident_time, victim, victim_role, briefing, incident_summary, icon, badge_color)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """, (
         "case_sapphire",
-        "The Blackwood Sapphire Heist",
-        "A 150-carat royal jewel vanished from a high-security manor vault mid-gala.",
-        "Intermediate",
-        "CASE-084-A",
-        "Blackwood Estate, Surrey, England",
-        "11:45 PM, Rainy Gala Night",
-        "Lord Percival Blackwood",
-        "Collector & Aristocrat",
-        "During Lord Blackwood's 60th birthday masquerade gala, the priceless 'Eye of Osiris' sapphire vanished from his personal steel vault. The vault required both a mechanical combination dial and a unique brass master key. The guard dogs outside were found asleep, and no windows were shattered. All four suspects were present in the manor at the time of the theft.",
-        "The stolen gem is worth over £4,000,000. Lord Blackwood discovered the vault wide open at midnight. The private guard dogs were peacefully tranquilized. Rain was pouring outside, meaning anyone leaving the manor grounds would have tracking mud.",
+        "Case 1: The Stolen Blue Diamond",
+        "A huge blue diamond was stolen from a locked safe during a birthday party.",
+        "Easy",
+        "CASE #01",
+        "Blackwood House, England",
+        "11:45 PM at night (Raining)",
+        "Mr. Blackwood",
+        "Rich House Owner",
+        "Tonight was Mr. Blackwood's 60th birthday party. At midnight, he went to his private room and saw that his big metal safe was wide open. His $4,000,000 blue diamond was gone! The guard dogs outside were put to sleep with medicine. The safe was not broken with tools—someone used a copied key. Four people in the house are suspects.",
+        "The diamond is missing. The guard dogs outside are asleep. The person who stole it used a copied key and walked outside in the rain.",
         "fa-gem",
         "#3b82f6"
     ))
@@ -33,10 +33,10 @@ def seed():
     INSERT INTO crime_scenes (id, case_id, name, description, icon)
     VALUES (?, ?, ?, ?, ?)
     """, [
-        ("scene_vault", "case_sapphire", "The Private Study & Vault", "Heavy mahogany bookshelves surround a heavy steel floor-vault. The door stands ajar.", "fa-vault"),
-        ("scene_kennel", "case_sapphire", "The Guard Dog Kennels", "Two trained Dobermans are groggily recovering in their straw beds. Food bowls nearby.", "fa-dog"),
-        ("scene_gallery", "case_sapphire", "The West Portrait Gallery", "Lined with antique paintings, French doors opening to the rainy garden terrace.", "fa-palette"),
-        ("scene_pantry", "case_sapphire", "The Butler's Pantry", "A discreet backroom stacked with silver trays, decanters, and coat racks.", "fa-utensils")
+        ("scene_vault", "case_sapphire", "The Office & Safe Room", "The room where the big metal safe is kept. The safe door is open and empty.", "fa-vault"),
+        ("scene_kennel", "case_sapphire", "The Dog Yard", "The place where two guard dogs are sleeping after eating drugged meat.", "fa-dog"),
+        ("scene_gallery", "case_sapphire", "The Art Painting Room", "A big room with paintings on the walls and a glass door leading to the garden.", "fa-palette"),
+        ("scene_pantry", "case_sapphire", "The Kitchen & Wine Room", "The back room where the house helper cleans plates and bottles.", "fa-utensils")
     ])
 
     # Suspects for Case 1
@@ -47,62 +47,62 @@ def seed():
         (
             "suspect_james",
             "case_sapphire",
-            "James Thornton",
-            "Head Butler",
+            "James (The Butler)",
+            "House Helper & Butler",
             54,
             "butler",
-            "Serving the Blackwood family for 22 years. Methodical, stiff-lipped, and trusted with the estate keys.",
-            "I was overseeing the dessert service and inventorying the vintage Bordeaux in the pantry until 11:55 PM, Detective.",
-            "Rumors suggest he has staggering gambling debts with London bookmakers.",
-            "Claims he never left the basement cellar and pantry between 11:15 PM and 11:50 PM.",
+            "He has worked in the house for 20 years. He has the house keys and serves food and wine.",
+            "I was in the kitchen cleaning wine bottles the whole evening, Detective. Other helpers saw me.",
+            "He owes money to money-lenders.",
+            "Claims he was in the kitchen and wine cellar from 11:15 PM to 11:50 PM.",
             0,
             "",
-            "I swear upon my mother's grave! I took five hundred pounds from the petty cash last month to stave off debt collectors, but I would never steal the master's jewel!"
+            "I am telling the truth! I took a small amount of money last month because I owed debts, but I never stole the big diamond!"
         ),
         (
             "suspect_yvonne",
             "case_sapphire",
-            "Madame Yvonne Delacroix",
-            "Parisian Art Dealer",
+            "Madame Yvonne (French Guest)",
+            "Art Dealer from Paris",
             42,
             "art_dealer",
-            "A charismatic and sharp international antiquities broker who traveled from Paris specifically for the gala.",
-            "I was enchanted by Lord Blackwood's Flemish portraits in the West Gallery. I sat with a glass of champagne admiring the brushstrokes.",
-            "Interpol suspects her gallery is a front for a high-end European jewel fencing ring.",
-            "Claims she sat alone in the West Gallery from 11:30 PM to midnight admiring paintings.",
+            "A guest from Paris, France. She buys and sells expensive jewels and art.",
+            "I was sitting alone in the Art Room looking at the nice paintings with a glass of juice. I saw nobody.",
+            "Police know she sells stolen jewels in Europe for millions of dollars.",
+            "Claims she sat alone in the Art Room looking at paintings between 11:30 PM and midnight.",
             1,
-            "Fine! Save your grand lecture, Inspector. Percival Blackwood bought that stone from colonial smugglers for pennies! A private collector in Geneva was willing to pay four million euros in untraceable bearer bonds. If that idiot butler hadn't kept the vault combination hidden behind his silly chessboard, I wouldn't have even needed to copy Lord Blackwood's wax key imprint!",
+            "Okay, okay! You caught me! Mr. Blackwood didn't deserve that diamond anyway! A buyer in Europe promised me 4 million dollars for it! I copied the safe key using wax, gave sleeping medicine to the dogs, and took the diamond. I was going to catch the 4:30 AM morning train back to Paris!",
             ""
         ),
         (
             "suspect_julian",
             "case_sapphire",
-            "Julian Blackwood",
-            "Estranged Nephew",
+            "Julian (The Nephew)",
+            "Mr. Blackwood's Nephew",
             28,
             "nephew",
-            "A reckless spendthrift nephew who was publicly cut from Lord Blackwood's will three weeks ago.",
-            "My uncle is a tyrant. I was out on the terrace having a smoke, freezing my fingers off, cursing his name.",
-            "Desperate for cash to avoid prison over a failed maritime investment scheme.",
-            "Claims he stood on the covered garden terrace smoking cigars between 11:35 PM and 11:55 PM.",
+            "He is Mr. Blackwood's nephew. His uncle stopped giving him money last month.",
+            "My uncle is mean to me. I was outside in the garden smoking in the rain.",
+            "He needs money quickly to pay off debts.",
+            "Claims he was outside in the rain between 11:35 PM and 11:55 PM.",
             0,
             "",
-            "Look, I snuck into the study earlier that evening trying to find my uncle's will to burn it! But when I heard footsteps, I panicked and dropped my silver cigar lighter and bolted! I never opened the vault!"
+            "Look, I snuck into the office earlier to find my uncle's papers, but I heard a sound, got scared, dropped my lighter, and ran outside! I didn't open the safe!"
         ),
         (
             "suspect_vivienne",
             "case_sapphire",
-            "Lady Vivienne Vance",
-            "Socialite & Rival Collector",
+            "Vivienne (Party Guest)",
+            "Rich Guest at the Party",
             36,
             "socialite",
-            "Glamorous heiress whose family once owned the Eye of Osiris eighty years ago.",
-            "I came to see the sapphire one last time. It was rightful family property before Percival swindled my grandfather.",
-            "Wants the gem to restore her family's ancestral honor.",
-            "Claims she was dancing in the main ballroom in full view of twenty guests.",
+            "A rich lady attending the party. Her grandfather once owned this diamond many years ago.",
+            "I was inside the big party hall dancing with friends. Everyone saw my shiny dress.",
+            "She wanted the diamond back in her family.",
+            "Claims she was dancing inside the party hall the whole time.",
             0,
             "",
-            "I was in the ballroom dancing the waltz! Ask anyone—my silver sequin gown was impossible to miss! I wanted the stone back legally, not through vulgar burglary!"
+            "I was dancing in the hall with twenty other people! I would never go out into the muddy rain in my expensive dress!"
         )
     ])
 
@@ -115,10 +115,10 @@ def seed():
             "clue_vault_dial",
             "case_sapphire",
             "scene_vault",
-            "Clean Vault Dial & Scratches",
+            "Safe Handle with Purple Makeup",
             "Physical",
-            "The combination lock was opened with zero signs of explosive or drill tampering.",
-            "Forensic light shows no forced entry on the dial. However, microscopic wax residue is embedded inside the keyhole, and a faint smear of violet cosmetic rouge was found on the brass handle.",
+            "The safe door was opened cleanly without breaking it. There is makeup on the handle.",
+            "The safe was opened with a copied key. There is purple lipstick/makeup and soft wax inside the keyhole.",
             "fa-lock",
             1
         ),
@@ -126,10 +126,10 @@ def seed():
             "clue_drugged_meat",
             "case_sapphire",
             "scene_kennel",
-            "Raw Beef with Valerian Tincture",
+            "Meat with French Sleeping Medicine",
             "Forensic",
-            "Discarded pieces of prime steak found in the kennels, soaked in sedative liquid.",
-            "Chemical residue tests positive for 'Valériane Somnifère'—a boutique French veterinary sedative sold exclusively through registered Parisian apothecary shops.",
+            "Pieces of meat found near the sleeping guard dogs.",
+            "The meat was soaked in a sleeping medicine called 'Valériane'. This medicine is only sold in Paris, France pharmacies.",
             "fa-flask",
             1
         ),
@@ -137,10 +137,10 @@ def seed():
             "clue_cigar_lighter",
             "case_sapphire",
             "scene_vault",
-            "Engraved Silver Cigar Lighter",
+            "Julian's Silver Lighter",
             "Physical",
-            "Found tucked under the oriental rug right next to the study desk.",
-            "The lighter bears the initials 'J.B.'—Julian Blackwood. It smells fresh, but the flint is jammed with lint.",
+            "A small lighter found under the carpet in the office.",
+            "The lighter has the letters 'J.B.' for Julian Blackwood. It was dropped by accident.",
             "fa-fire",
             0
         ),
@@ -148,10 +148,10 @@ def seed():
             "clue_terrace_mud",
             "case_sapphire",
             "scene_gallery",
-            "Muddy Footprints & Silk Hem",
+            "Muddy Footprints & Purple Dress Thread",
             "Physical",
-            "Faint damp shoe prints on the parquet leading in from the terrace French doors.",
-            "Size 38 European (women's designer shoe). Snagged on the terrace rosebush is a thread of rare plum-colored French silk gauze.",
+            "Wet footprints from the garden with a thread of purple cloth.",
+            "Small shoe prints (women's size 38). A piece of purple silk thread from a woman's party dress was caught on the rose bushes outside.",
             "fa-shoe-prints",
             1
         ),
@@ -159,10 +159,10 @@ def seed():
             "clue_wine_inventory",
             "case_sapphire",
             "scene_pantry",
-            "Cellar Inventory Logbook",
+            "Kitchen Work Logbook",
             "Document",
-            "The butler's logbook with timestamped cellar checks throughout the evening.",
-            "Shows entries written in James's penmanship at 11:20, 11:35, and 11:48 PM, with wet red wine rings on the table consistent with sustained decanting work.",
+            "The helper's book with notes showing his work in the kitchen all night.",
+            "James wrote entries at 11:20, 11:35, and 11:48 PM while opening wine bottles. Kitchen helpers confirmed he was there.",
             "fa-book-open",
             0
         ),
@@ -170,10 +170,10 @@ def seed():
             "clue_wax_impression",
             "case_sapphire",
             "scene_gallery",
-            "Discarded Wax Seal & Shavings",
+            "Wax Piece with Key Shape",
             "Forensic",
-            "Hidden behind a bust of Napoleon in the West Gallery: dental wax with a key impression.",
-            "The mold perfectly matches Lord Blackwood's vault master key. Residue of high-end lavender hand lotion is dried on the wrapper.",
+            "A piece of wax found hidden behind a statue in the Art Room.",
+            "The wax has the exact shape of the safe key! It smells like lavender hand cream.",
             "fa-fingerprint",
             1
         ),
@@ -181,40 +181,40 @@ def seed():
             "clue_train_ticket",
             "case_sapphire",
             "scene_pantry",
-            "Early Eurostar Express Ticket",
+            "Early Train Ticket to Paris (4:30 AM)",
             "Document",
-            "Found inside a forgotten clutch left by the guest coat rack in the pantry.",
-            "A one-way London St Pancras to Paris Gare du Nord ticket booked for 4:30 AM tomorrow under the name 'Y. Delacroix'. The bag smells distinctly of French lavender and violet cosmetic rouge.",
+            "A train ticket found in a woman's handbag left near the coat rack.",
+            "A one-way morning train ticket to Paris leaving at 4:30 AM under the name 'Y. Delacroix' (Madame Yvonne). The bag smells of lavender cream and has purple makeup.",
             "fa-ticket",
             1
         )
     ])
 
-    # Dialogues for Case 1
+    # Dialogues for Case 1 (Simple English)
     cursor.executemany("""
     INSERT INTO suspect_dialogues (suspect_id, topic, question, answer, reaction_mood, unlocks_clue_id)
     VALUES (?, ?, ?, ?, ?, ?)
     """, [
-        # James dialogues
-        ("suspect_james", "Whereabouts", "Can anyone corroborate that you remained in the cellar all evening?", "The scullery maid and footman saw me decanting the 1982 Château Margaux. My inventory log records every vintage brought up to the gala floor.", "calm", "clue_wine_inventory"),
-        ("suspect_james", "The Vault Key", "Did anyone have access to the master key besides you and Lord Blackwood?", "Lord Blackwood keeps the key on his waistcoat chain. However, during dinner, he hung his formal coat in the parlor cloakroom where guests also placed their wraps.", "nervous", None),
-        ("suspect_james", "The Dogs", "Did you feed the Dobermans tonight?", "Certainly not raw beef! The kennel master prepared dry kibble at 5 PM. I never use sedatives, Detective.", "neutral", None),
+        # James
+        ("suspect_james", "Where were you?", "Can someone confirm you were in the kitchen all night?", "Yes! The other kitchen helpers saw me opening wine bottles. I wrote down every bottle in my kitchen logbook.", "calm", "clue_wine_inventory"),
+        ("suspect_james", "Safe Key", "Who had access to the safe key?", "Mr. Blackwood had it in his coat. But during dinner, he hung his coat in the coat rack where guests also put their coats and bags.", "nervous", None),
+        ("suspect_james", "The Dogs", "Did you feed the dogs meat?", "No, I only feed them dry food. I never gave them meat or sleeping pills.", "calm", None),
 
-        # Yvonne dialogues
-        ("suspect_yvonne", "Art Gallery", "You claimed you were admiring the Dutch portraits between 11:30 and midnight?", "Mais oui! The lighting on the Rembrandt replica in the West Gallery is exquisite at night. I didn't see or hear a soul.", "smug", None),
-        ("suspect_yvonne", "French Sedative", "Do you recognize this French veterinary sedative found with the dogs?", "Veterinary medicine? Mon dieu, Inspector, I am a fine art curator, not a veterinarian! I carry perfume, not sleeping drugs.", "nervous", None),
-        ("suspect_yvonne", "Travel Plans", "When do you plan to return to Paris?", "Oh, in a few days... I haven't even booked my return passage yet. I adore London in the autumn.", "smug", None),
+        # Yvonne
+        ("suspect_yvonne", "Art Room", "You said you were looking at paintings alone?", "Yes, I was sitting alone looking at the beautiful paintings between 11:30 and midnight. Nobody was with me.", "smug", None),
+        ("suspect_yvonne", "Sleeping Medicine", "Do you know about this French sleeping medicine given to the dogs?", "Sleeping medicine? No! I am an art dealer, not a doctor. I do not carry dog medicines.", "nervous", None),
+        ("suspect_yvonne", "Travel Plans", "When are you going back home to Paris?", "Oh, in a few days. I have not booked any train ticket yet. I like London.", "smug", None),
 
-        # Julian dialogues
-        ("suspect_julian", "Study Intrusion", "We found your silver lighter on the study floor, Julian.", "All right! I'll confess! I went into Uncle's study at 10:30 PM trying to snatch his handwritten codicil to burn it. But I couldn't open his safe, heard someone coming, and fled through the conservatory!", "nervous", None),
-        ("suspect_julian", "Alibi", "Who saw you out on the terrace at 11:45 PM?", "Nobody, it was raining cats and dogs! But check my dress shoes—they are soaked through and covered in garden soil!", "angry", None),
+        # Julian
+        ("suspect_julian", "In the Office", "We found your lighter in the office, Julian.", "Okay, I went in at 10:30 PM to find my uncle's papers, but I heard footsteps, got scared, dropped my lighter, and ran outside!", "nervous", None),
+        ("suspect_julian", "In the Rain", "Who saw you outside in the garden?", "Nobody, it was raining! But look at my shoes, they are completely wet from the mud in the garden.", "angry", None),
 
-        # Vivienne dialogues
-        ("suspect_vivienne", "Ballroom Presence", "Did you step outside into the garden terrace at any point?", "In this silk chiffon skirt? In the Surrey rain? Heavens no, I would ruin five thousand guineas of handmade couture!", "calm", None),
-        ("suspect_vivienne", "The Sapphire", "Do you hold resentment towards Lord Blackwood?", "He is a pompous hoarder, but I am negotiating with his creditors to buy the estate in foreclosure. Theft is so terribly bourgeois.", "smug", None)
+        # Vivienne
+        ("suspect_vivienne", "Dancing", "Did you go outside into the garden in the rain?", "In this expensive silk dress? Never! The rain would ruin my dress. I stayed in the warm party hall.", "calm", None),
+        ("suspect_vivienne", "The Diamond", "Do you dislike Mr. Blackwood?", "He is not very nice, but I would never steal anything. Stealing is wrong.", "smug", None)
     ])
 
-    # Contradictions for Case 1
+    # Contradictions for Case 1 (Simple English)
     cursor.executemany("""
     INSERT INTO contradictions (suspect_id, clue_id, callout_text, suspect_response, breaks_alibi)
     VALUES (?, ?, ?, ?, ?)
@@ -222,41 +222,41 @@ def seed():
         (
             "suspect_yvonne",
             "clue_train_ticket",
-            "You claimed you hadn't booked your return passage to Paris, yet we discovered a 4:30 AM Eurostar ticket in your name tucked away in your lavender-scented clutch!",
-            "W-what? That... that was merely a provisional ticket in case the gala bored me!",
+            "You said you did not book a ticket to Paris, but we found a 4:30 AM morning train ticket with your name 'Y. Delacroix' inside your lavender handbag!",
+            "W-what?! That... that was just a backup ticket in case the party got boring!",
             1
         ),
         (
             "suspect_yvonne",
             "clue_terrace_mud",
-            "You claimed you sat peacefully admiring paintings in the West Gallery, but the rosebush by the terrace door snagged a thread of plum French silk gauze matching your gown, alongside size 38 footprints!",
-            "Sacré bleu... a woman cannot take some fresh midnight air without being interrogated?!",
+            "You said you stayed inside the Art Room, but we found purple dress threads matching your dress on the garden bushes, and muddy footprints size 38!",
+            "Oh no... I... I just stepped outside for a second to get fresh air!",
             1
         ),
         (
             "suspect_yvonne",
             "clue_drugged_meat",
-            "The guard dogs were poisoned with Valériane Somnifère—a specialized sedative compounded exclusively in Parisian pharmacies!",
-            "You think you are clever, don't you?! Many people travel between Paris and London!",
+            "The dogs were put to sleep with a special medicine sold only in Paris, France—where you just came from!",
+            "Many people go to Paris! That doesn't prove it was me!",
             1
         ),
         (
             "suspect_yvonne",
             "clue_vault_dial",
-            "Forensic analysis of the vault dial revealed your signature violet cosmetic rouge and traces of dental wax inside the keyhole!",
-            "Mon dieu... my compact must have brushed the dial...",
+            "Your purple makeup was found right on the metal handle of the safe, and wax was inside the keyhole!",
+            "My makeup?! How did that get there...",
             1
         ),
         (
             "suspect_james",
             "clue_wine_inventory",
-            "Your cellar ledger confirms three separate decanting batches right during the window of the burglary, supported by kitchen staff testimony.",
-            "Indeed, Detective. As I told you, duty keeps me at my station.",
+            "Your kitchen logbook and kitchen helpers confirm you were opening wine bottles the whole time.",
+            "Yes, Detective! That proves I was doing my job in the kitchen.",
             0
         )
     ])
 
-    # Case Solution for Case 1
+    # Case 1 Solution (Simple English)
     cursor.execute("""
     INSERT INTO case_solutions (case_id, culprit_suspect_id, weapon_clue_id, key_proof_clue_id, motive_summary, full_verdict_narrative)
     VALUES (?, ?, ?, ?, ?, ?)
@@ -265,44 +265,42 @@ def seed():
         "suspect_yvonne",
         "clue_wax_impression",
         "clue_train_ticket",
-        "Pre-arranged international fence sale to a private European billionaire for €4,000,000.",
-        "Madame Yvonne Delacroix used her social access to lift Lord Blackwood's key from his cloak, took a wax mold in the gallery, and returned it unnoticed. At 11:35 PM, she fed the guard dogs raw steak spiked with French valerian sedative, slipped through the West Terrace in the rain, and unlocked the vault. Caught with the lavender wax mold, plum silk threads on the thorns, and a secret 4:30 AM Eurostar ticket to flee the country, Madame Delacroix collapsed in defeat as the Scotland Yard handcuffs clicked shut around her wrists!"
+        "She wanted to take the diamond to Paris and sell it to a private buyer for 4 million dollars.",
+        "Madame Yvonne took the safe key from Mr. Blackwood's coat while he was eating dinner, made a copy using soft wax, and put the key back. At 11:35 PM, she fed the guard dogs meat soaked in French sleeping medicine, opened the safe with her copied key, and stole the diamond. When police found her secret 4:30 AM train ticket to Paris, the wax key mold, and purple dress threads on the bushes, Madame Yvonne admitted her crime and was arrested!"
     ))
 
-    # ==========================================
-    # CASE 2: The Cyanide Sonata
-    # ==========================================
+    # =========================================================
+    # CASE 2: The Poisoned Tea (Super Simple English)
+    # =========================================================
     cursor.execute("""
     INSERT INTO cases (id, title, tagline, difficulty, case_number, location, incident_time, victim, victim_role, briefing, incident_summary, icon, badge_color)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """, (
         "case_sonata",
-        "The Cyanide Sonata",
-        "A ruthless maestro collapsed dead at his podium during a stormy dress rehearsal.",
-        "Hard",
-        "CASE-092-B",
-        "The Royal St. Jude Concert Hall, London",
-        "8:15 PM, Act II Rehearsal",
-        "Maestro Arturo Vane",
-        "World-Renowned Orchestra Conductor",
-        "During the climactic crescendo of Tchaikovsky's 6th Symphony, tyrannical conductor Arturo Vane clutched his throat, gasped for breath, and collapsed off his podium. Paramedics pronounced him dead on arrival: cyanide poisoning. On his conductor's music stand sat his customary porcelain mug of steaming chamomile honey tea. The stage doors were secured against the storm, trapping all four key members backstage.",
-        "The toxicologist confirmed lethal potassium cyanide in the tea mug. The water was boiled in the backstage green room. Only four people had unsupervised access to the maestro's private refreshments prior to the baton downbeat at 8:00 PM.",
+        "Case 2: The Poisoned Tea",
+        "A music conductor drank his tea on stage and died from poison.",
+        "Medium",
+        "CASE #02",
+        "Royal Concert Hall, London",
+        "8:15 PM (Music Rehearsal)",
+        "Arturo Vane",
+        "Famous Music Conductor",
+        "During a music rehearsal, conductor Arturo Vane drank warm tea from his cup on stage. Suddenly, he fell to the floor and died! The doctor found poison (cyanide) in his tea cup. The doors were locked, so only 4 people working backstage could have touched his tea.",
+        "The conductor died from poison in his tea. Only 4 people had access to his tea cup before he walked on stage.",
         "fa-music",
         "#8b5cf6"
     ))
 
-    # Crime scenes for Case 2
     cursor.executemany("""
     INSERT INTO crime_scenes (id, case_id, name, description, icon)
     VALUES (?, ?, ?, ?, ?)
     """, [
-        ("scene_podium", "case_sonata", "The Conductor's Podium", "Center stage. Music stand knocked over, broken baton, and a half-empty porcelain tea mug.", "fa-drum"),
-        ("scene_greenroom", "case_sonata", "The Private Green Room", "Vane's luxurious private dressing suite. Kettle, honey jar, tea caddy, and a locked desk.", "fa-couch"),
-        ("scene_backstage", "case_sonata", "Stage Left Wing & Prop Room", "Dimmers, cables, instrument cases, soundboard, and lockers for stage hands.", "fa-theater-masks"),
-        ("scene_library", "case_sonata", "The Music Archive & Library", "Shelves of bound orchestral scores, manuscript paper, photocopier, and paper shredder.", "fa-archive")
+        ("scene_podium", "case_sonata", "The Conductor Stage", "Center stage. Music stand knocked over and the half-empty tea cup on the table.", "fa-drum"),
+        ("scene_greenroom", "case_sonata", "The Private Tea Room", "The dressing room where hot water, honey, and tea bags are kept.", "fa-couch"),
+        ("scene_backstage", "case_sonata", "Backstage Lighting Desk", "The area behind the stage where stage helpers control lights and cables.", "fa-theater-masks"),
+        ("scene_library", "case_sonata", "The Music Book Room", "A room filled with music books, papers, and files.", "fa-archive")
     ])
 
-    # Suspects for Case 2
     cursor.executemany("""
     INSERT INTO suspects (id, case_id, name, role, age, avatar_svg, bio, initial_statement, motive_hint, alibi_claim, is_culprit, confession, innocent_statement)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -310,66 +308,65 @@ def seed():
         (
             "suspect_elena",
             "case_sonata",
-            "Elena Rostova",
-            "First Violinist & Concertmaster",
+            "Elena (Violin Player)",
+            "Chief Violinist",
             34,
             "violinist",
-            "A virtuosic perfectionist who has led the string section for seven seasons. Known for fierce artistic battles with Vane.",
-            "I was on stage tuning my Stradivarius with the oboist from 7:45 PM until the Maestro stepped on stage.",
-            "Vane had threatened to terminate her contract tomorrow morning and replace her with a protégé.",
-            "Claims she sat in Section A tuning her violin in full view of the orchestra.",
+            "The top violin player. She often argued with the conductor about music.",
+            "I was on stage tuning my violin with other musicians from 7:45 PM until the music started.",
+            "The conductor threatened to fire her tomorrow.",
+            "Claims she was sitting on stage tuning her violin.",
             0,
             "",
-            "I despised the man's cruelty, Detective, but I am an artist! I was going to ruin him by walking out with the entire violin section before the Royal Gala!"
+            "I disliked him because he was mean, but I am an artist! I would never poison anyone!"
         ),
         (
             "suspect_oliver",
             "case_sonata",
-            "Oliver Finch",
+            "Oliver (Stage Manager)",
             "Stage Manager",
             48,
             "stage_manager",
-            "Runs the theatre backstage with military precision. Personally prepares the Maestro's tea service before every rehearsal.",
-            "I prepared the Maestro's chamomile tea at 7:40 PM, carried the tray to his podium at 7:55 PM, and immediately returned to the lighting board.",
-            "His daughter was an aspiring soprano who committed suicide after Vane viciously humiliated and blackballed her from the opera.",
-            "Claims he never left the stage left lighting console between 7:50 PM and the incident.",
+            "He prepares the stage and always makes the conductor's tea every night.",
+            "I made the conductor's tea at 7:40 PM, carried the cup to his stand at 7:55 PM, and went back to my lights.",
+            "His daughter was a singer who died after the conductor was very cruel to her and ruined her career.",
+            "Claims he never left the light controls after delivering the tea.",
             1,
-            "He laughed! Do you know what Arturo Vane said when I begged him to give my sweet Clara another audition three years ago? He told her she had 'the vocal range of a dying toad' and phoned every conservatory in Europe to bury her! She threw herself into the Thames, and he drank vintage champagne! The tea was sweet, wasn't it, Maestro?! May you burn in hell!",
+            "He deserved it! He was so cruel to my sweet daughter that she took her own life! He ruined her dreams and laughed about it. I put the poison in his cup so he could never hurt anyone again!",
             ""
         ),
         (
             "suspect_clara_b",
             "case_sonata",
-            "Clara Bell",
-            "Understudy Pianist",
+            "Clara (Piano Player)",
+            "Young Pianist",
             25,
             "pianist",
-            "A brilliant young prodigy whose original piano concerto was stolen and published under Vane's name.",
-            "I was in the basement archive practicing my cadenza on the upright piano with headphones.",
-            "Discovered yesterday that Vane collected £200,000 in royalties from music she composed.",
-            "Claims she was practicing alone in the lower practice cellar from 7:30 to 8:15 PM.",
+            "A talented young pianist whose song was stolen by the conductor.",
+            "I was in the basement room practicing piano with headphones on.",
+            "The conductor stole her music song and took all the money.",
+            "Claims she was practicing piano in the basement.",
             0,
             "",
-            "I was suing him in the High Court for copyright theft! My lawyers filed the injunction at noon! If he dies, the rights stay tied up in his estate for decades—his death ruins my legal claim!"
+            "I had a lawyer ready to take him to court next week to get my money back! If he dies, I can't get my money back easily!"
         ),
         (
             "suspect_marcus",
             "case_sonata",
-            "Marcus Sterling",
-            "Philharmonic Chairman & Patron",
+            "Marcus (Rich Sponsor)",
+            "Hall Sponsor",
             59,
             "patron",
-            "A wealthy industrialist funding the orchestra. Secretly bleeding cash from embezzlement.",
-            "I was in the private box watching rehearsal with my binoculars and reviewing the season ledger.",
-            "Vane uncovered Sterling's embezzlement of the endowment fund and demanded hush money.",
-            "Claims he never came downstairs from the VIP Mezzanine box.",
+            "A wealthy businessman who gives money to the music hall.",
+            "I was sitting upstairs in the private box watching the rehearsal.",
+            "The conductor found out Marcus was stealing money from the hall funds.",
+            "Claims he was upstairs in the VIP box.",
             0,
             "",
-            "Vane was blackmailing me for half a million pounds! Do you think I'd poison him with a whole auditorium watching? I was waiting for my offshore wire transfer to clear!"
+            "The conductor was asking me for money, but I would never kill someone in front of a whole orchestra!"
         )
     ])
 
-    # Clues for Case 2
     cursor.executemany("""
     INSERT INTO clues (id, case_id, scene_id, title, category, short_desc, full_analysis, icon, is_key_evidence)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -378,10 +375,10 @@ def seed():
             "clue_spiked_mug",
             "case_sonata",
             "scene_podium",
-            "Cyanide-Laced Porcelain Mug",
+            "Poisoned Tea Cup",
             "Forensic",
-            "Maestro Vane's personal tea mug with Chamomile tea residue and bitter almond smell.",
-            "Toxicology analysis: 400mg of potassium cyanide dissolved inside the remaining liquid. The lethal dose was placed directly into the honey-tea blend.",
+            "The conductor's tea cup found on stage with poison inside.",
+            "Lab tests found deadly white cyanide poison mixed directly into the tea.",
             "fa-mug-hot",
             1
         ),
@@ -389,10 +386,10 @@ def seed():
             "clue_honey_dipper",
             "case_sonata",
             "scene_greenroom",
-            "The Green Room Honey Jar",
+            "Clean Honey Jar",
             "Forensic",
-            "The jar of Scottish heather honey used exclusively for Vane's drinks.",
-            "The honey jar itself is pure and untainted. The cyanide was introduced after the tea was poured, not in the main kettle or honey container.",
+            "The honey jar in the kitchen used for making the tea.",
+            "The honey jar is completely clean and safe. The poison was added directly into the cup later, not from the honey jar.",
             "fa-jar",
             1
         ),
@@ -400,10 +397,10 @@ def seed():
             "clue_photo_locket",
             "case_sonata",
             "scene_backstage",
-            "Tarnished Silver Photo Locket",
+            "Silver Locket with Poison Powder",
             "Document",
-            "Found beneath the lighting console in Stage Left with a broken hinge.",
-            "Contains a photograph of a young soprano girl inscribed: 'To Dad, my biggest fan - Clara'. Tucked inside is a chemist's paper packet labeled 'Potassium Cyanide - Pest Control' with white residue.",
+            "A silver necklace locket found dropped under Oliver's lighting desk.",
+            "Inside is a photo of Oliver's daughter Clara. Tucked inside is a paper packet with white cyanide poison powder!",
             "fa-portrait",
             1
         ),
@@ -411,10 +408,10 @@ def seed():
             "clue_stage_cue_sheet",
             "case_sonata",
             "scene_backstage",
-            "Stage Manager's Duty Log",
+            "Stage Duty Sheet",
             "Document",
-            "Oliver Finch's clipboard tracking cues, backstage access, and beverage delivery.",
-            "Notates: '7:50 PM - Tea steeped. 7:55 PM - Hand-delivered mug to podium.' Only Finch touched the cup between the kitchen and the podium.",
+            "Oliver's clipboard showing what time he carried the tea.",
+            "Notes show: '7:50 PM - Made tea. 7:55 PM - Hand-delivered tea to stage.' Only Oliver touched the cup.",
             "fa-clipboard-list",
             1
         ),
@@ -422,48 +419,25 @@ def seed():
             "clue_violins_scoresheet",
             "case_sonata",
             "scene_podium",
-            "Marked Rehearsal Score",
+            "Marked Music Sheet",
             "Document",
-            "The Maestro's score sheets with angry red annotations.",
-            "Vicious insults scribbled across the violin parts: 'Elena plays like a butcher. Replace her by Friday.'",
+            "The conductor's paper sheets with mean notes written in red.",
+            "Mean notes written about the violin section: 'Elena plays poorly. Replace her soon.'",
             "fa-file-signature",
-            0
-        ),
-        (
-            "clue_embezzlement_audit",
-            "case_sonata",
-            "scene_library",
-            "Confidential Audit Binder",
-            "Document",
-            "Discovered in the archive safe: proof of £450,000 diverted from the musicians' pension.",
-            "Transfers bear Marcus Sterling's signature, with an extortion note from Vane demanding monthly payouts.",
-            "fa-money-bill-wave",
             0
         )
     ])
 
-    # Dialogues for Case 2
     cursor.executemany("""
     INSERT INTO suspect_dialogues (suspect_id, topic, question, answer, reaction_mood, unlocks_clue_id)
     VALUES (?, ?, ?, ?, ?, ?)
     """, [
-        # Oliver dialogues
-        ("suspect_oliver", "Tea Preparation", "Did anyone else touch the Maestro's tea after you brewed it?", "Nobody. The kettle was in the green room. I steeped it for five minutes, brought it directly to his music stand at 7:55 PM. I always do.", "calm", "clue_stage_cue_sheet"),
-        ("suspect_oliver", "Family", "Do you have any family ties in the performing arts?", "My... my daughter passed away a few years ago. She was a student. It has nothing to do with this horrific accident.", "nervous", None),
-        ("suspect_oliver", "Backstage Chemicals", "Do you keep rat poison or chemicals in the stage workshop?", "Only standard floor cleaners. The exterminators handle pest control, Detective.", "calm", None),
-
-        # Elena dialogues
-        ("suspect_elena", "Firing Threat", "Did you know Vane wrote notes planning to replace you by Friday?", "He wrote that every week! Arturo was a megalomaniac. If I wanted him gone, I would play the concert so magnificently the board would fire HIM for failing to keep pace with me!", "angry", None),
-        ("suspect_elena", "Stage Presence", "Did you walk near the podium before the downbeat?", "I went to place my tuning fork on the cello riser at 7:52 PM, but I never touched his tea. Elena Rostova does not poison drinks!", "calm", None),
-
-        # Clara Bell dialogues
-        ("suspect_clara_b", "The Stolen Concerto", "Vane took credit for your piano concerto, didn't he?", "Yes! He called it 'Symphonic Meditation No. 4'. But my copyright lawsuit was going to be heard in court next Tuesday! His death halts the injunction. Why would I shoot myself in the foot?", "calm", None),
-
-        # Marcus dialogues
-        ("suspect_marcus", "Extortion", "Vane was blackmailing you over the pension deficit.", "The Maestro was a vulture! But my financial lawyers were drafting a non-disclosure settlement. Murder solves nothing—it invites police into my books, as you are doing now!", "angry", None)
+        ("suspect_oliver", "Making the Tea", "Did anyone else touch the tea after you made it?", "Nobody. I made it in the tea room, carried it straight to his stand at 7:55 PM, and left.", "calm", "clue_stage_cue_sheet"),
+        ("suspect_oliver", "Your Daughter", "Did your daughter sing here before?", "My... my daughter passed away a few years ago. Please don't talk about her.", "nervous", None),
+        ("suspect_elena", "Arguments", "Did the conductor threaten to replace you?", "He always shouted at people, but I wouldn't kill him for that.", "calm", None),
+        ("suspect_clara_b", "Stolen Song", "Did the conductor take your song?", "Yes, but I was taking him to court next week with my lawyer.", "calm", None)
     ])
 
-    # Contradictions for Case 2
     cursor.executemany("""
     INSERT INTO contradictions (suspect_id, clue_id, callout_text, suspect_response, breaks_alibi)
     VALUES (?, ?, ?, ?, ?)
@@ -471,27 +445,26 @@ def seed():
         (
             "suspect_oliver",
             "clue_photo_locket",
-            "We found this silver locket under your lighting console containing a photo of your daughter Clara—and a chemist's paper packet with potassium cyanide residue!",
-            "My... my daughter's locket... where did you... you don't know the pain I've lived with!",
+            "We found your silver locket under your desk with your daughter's photo and white cyanide poison powder inside!",
+            "My... my daughter's locket! You don't know the sadness he caused her!",
             1
         ),
         (
             "suspect_oliver",
             "clue_honey_dipper",
-            "The green room honey jar and kettle were untainted. The cyanide was added directly into the mug while in transit to the podium—a journey only YOU undertook!",
-            "I... someone else could have slipped something into it while my back was turned! It was dark backstage!",
+            "The honey jar was completely clean! The poison was dropped into the cup while only YOU carried it to the stage!",
+            "I... someone else could have walked by!",
             1
         ),
         (
             "suspect_oliver",
             "clue_stage_cue_sheet",
-            "Your own stage log confirms you held custody of the tea right until 7:55 PM, five minutes before Vane took his first sip at the podium downbeat!",
-            "He deserved it! He drove her to the river! He deserved every drop!",
+            "Your own duty sheet shows you carried the cup directly to the stage 5 minutes before he drank it!",
+            "He deserved it! He drove my child to suicide!",
             1
         )
     ])
 
-    # Case Solution for Case 2
     cursor.execute("""
     INSERT INTO case_solutions (case_id, culprit_suspect_id, weapon_clue_id, key_proof_clue_id, motive_summary, full_verdict_narrative)
     VALUES (?, ?, ?, ?, ?, ?)
@@ -500,44 +473,42 @@ def seed():
         "suspect_oliver",
         "clue_spiked_mug",
         "clue_photo_locket",
-        "Revenge for driving his opera-singer daughter Clara to suicide through ruthless career sabotage.",
-        "Stage Manager Oliver Finch harbored burning grief for three years after Maestro Vane cruelly ruined his daughter's opera dreams, leading to her suicide. Armed with industrial cyanide obtained from theatre pest stores, Finch steeped the Maestro's tea at 7:50 PM, stirred the lethal poison directly into the porcelain cup with his daughter's locket packet, and placed it on the podium stand. Confronted with the dropped silver locket containing cyanide dust and his sole custody of the beverage, Finch broke down in tears, crying out his daughter's name as officers escorted him away."
+        "He wanted revenge because the conductor was very mean to his daughter, causing her suicide.",
+        "Stage manager Oliver Finch poisoned the conductor's tea because the conductor had cruelly ruined his daughter's career. When police found his daughter's locket with poison powder and proved only he held the tea cup, Oliver broke down and admitted his guilt."
     ))
 
-    # ==========================================
-    # CASE 3: The Silicon Vault Sabotage
-    # ==========================================
+    # =========================================================
+    # CASE 3: The Stolen Computer Chip (Super Simple English)
+    # =========================================================
     cursor.execute("""
     INSERT INTO cases (id, title, tagline, difficulty, case_number, location, incident_time, victim, victim_role, briefing, incident_summary, icon, badge_color)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """, (
         "case_cyber",
-        "The Silicon Vault Sabotage",
-        "A quantum AI architect poisoned inside an airtight, biometric-locked server room.",
-        "Expert",
-        "CASE-105-C",
-        "NeuroCore Quantum Labs, Level -3 Cleanroom, Cambridge",
-        "2:15 AM, Server Backup Window",
-        "Dr. Aris Thorne",
-        "Chief Quantum AI Scientist",
-        "At 2:15 AM, alarms sounded in the subterranean cleanroom of NeuroCore Labs. Dr. Aris Thorne was found unconscious and asphyxiated inside the airtight quantum computer vault. The primary optical drive containing 'Project Promethean'—the multi-billion dollar quantum neural core—was physically ripped from the rack and wiped. The vault door has a biometric retina scanner and electromagnetic lock that was never breached from the outside.",
-        "Medical autopsy discovered Dr. Thorne died from acute nitrogen gas suffocation. The room's fire suppression system was triggered manually from an emergency terminal. Four personnel were present in the sub-level facility during the 2:00 AM maintenance cycle.",
+        "Case 3: The Stolen Computer Chip",
+        "A scientist was found unconscious in a cold server room, and a chip was stolen.",
+        "Hard",
+        "CASE #03",
+        "Tech Lab Server Room, Cambridge",
+        "2:15 AM (Night Shift)",
+        "Dr. Aris",
+        "Chief Computer Scientist",
+        "At 2:15 AM, the security alarm rang in the cold server vault. Dr. Aris was found unconscious on the floor because gas was turned on. The most important computer storage drive with secret AI technology was ripped out and stolen. Only 4 people were in the building tonight.",
+        "Dr. Aris was stopped with gas and the secret computer chip was stolen. Someone turned off cameras and took the drive.",
         "fa-microchip",
         "#10b981"
     ))
 
-    # Crime scenes for Case 3
     cursor.executemany("""
     INSERT INTO crime_scenes (id, case_id, name, description, icon)
     VALUES (?, ?, ?, ?, ?)
     """, [
-        ("scene_q_vault", "case_cyber", "The Sub-Zero Quantum Vault", "Chilled to near absolute zero. Racks of quantum processing units, severed optical fiber cables.", "fa-server"),
-        ("scene_security_hub", "case_cyber", "Cybersecurity Command Desk", "Monitors displaying biometric access logs, CCTV feeds, and system diagnostics.", "fa-shield-halved"),
-        ("scene_airlock", "case_cyber", "Decontamination Airlock", "Hazmat suits, nitrogen scrubbers, sticky mats, and locker bays.", "fa-door-closed"),
-        ("scene_lab_office", "case_cyber", "Dr. Thorne's Research Office", "Whiteboards filled with quantum tensor equations, cracked coffee mugs, and encrypted USBs.", "fa-laptop-code")
+        ("scene_q_vault", "case_cyber", "The Cold Server Room", "The cold room where computer servers and secret chips are kept.", "fa-server"),
+        ("scene_security_hub", "case_cyber", "Security Desk", "Monitors and security camera screens.", "fa-shield-halved"),
+        ("scene_airlock", "case_cyber", "The Locker Room", "Suits and storage lockers for lab workers.", "fa-door-closed"),
+        ("scene_lab_office", "case_cyber", "The Scientist Office", "Desk with computer papers and coffee cups.", "fa-laptop-code")
     ])
 
-    # Suspects for Case 3
     cursor.executemany("""
     INSERT INTO suspects (id, case_id, name, role, age, avatar_svg, bio, initial_statement, motive_hint, alibi_claim, is_culprit, confession, innocent_statement)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -545,66 +516,65 @@ def seed():
         (
             "suspect_sarah",
             "case_cyber",
-            "Dr. Sarah Lin",
-            "Lead Algorithm Architect",
+            "Dr. Sarah (Engineer)",
+            "Lead Algorithm Engineer",
             32,
             "engineer",
-            "Dr. Thorne's second-in-command. Brilliant, intensely ambitious, and recently passed over for promotion.",
-            "I was running calibration routines on Terminal 4 in the dry lab from 1:45 AM until the fire sirens screamed.",
-            "She discovered Dr. Thorne was planning to open-source the model, rendering her lucrative equity options worthless.",
-            "Claims she never entered the airlock corridor between 1:30 AM and the emergency evacuation.",
+            "The second scientist in the lab. She wanted a promotion.",
+            "I was testing computer programs on computer 4 the whole time until the sirens rang.",
+            "She wanted more credit for the research.",
+            "Claims she was sitting at computer 4 in the dry lab.",
             0,
             "",
-            "I argued with Aris about patent monetization, sure! But I created half that quantum architecture! Destroying the optical core destroyed three years of my life's work!"
+            "I helped build that computer chip! I would never destroy my own hard work!"
         ),
         (
             "suspect_viktor",
             "case_cyber",
-            "Viktor Kroll",
-            "Head of Physical Security",
+            "Viktor (Security Guard)",
+            "Head Security Officer",
             46,
             "security",
-            "Ex-military contractor tasked with securing the quantum vault and managing biometric authorization logs.",
-            "I was on duty at the primary console watching cameras. The vault door was never opened between 2:00 AM and 2:15 AM.",
-            "Deep in debt to an Eastern European corporate syndicate looking to acquire quantum encryption bypass keys.",
-            "Claims he was logged in at the main console monitoring external perimeter sensors.",
+            "The security guard who controls the doors, keys, and cameras.",
+            "I was sitting at the front desk watching cameras. Nobody walked in.",
+            "He needed millions of dollars to pay off big debts.",
+            "Claims he never left the front camera desk.",
             1,
-            "You don't understand what Thorne was building! Promethean wasn't just another language model—it was capable of breaking 4096-bit RSA banking cryptography in milliseconds! A foreign consortium offered me fifteen million dollars for a cold clone of the optical drive. Thorne walked in during the data dump! I had no choice—I engaged the cleanroom nitrogen purge to kill the alarms and silence him!",
+            "A foreign company offered me 15 million dollars to steal that computer drive! Dr. Aris walked in while I was copying the files. I panicked, turned on the emergency gas switch to knock him out, and ran! You got me!",
             ""
         ),
         (
             "suspect_maya",
             "case_cyber",
-            "Maya Sterling",
-            "Systems Firmware Engineer",
+            "Maya (Fix-it Technician)",
+            "Cooling Pipe Technician",
             27,
             "sysadmin",
-            "Specialist in server cooling and halon fire-suppression infrastructure.",
-            "I was replacing coolant pumps in Sector C. The valve replacement took longer than expected due to pipe corrosion.",
-            "Has an anonymous whistleblower blog detailing safety violations at NeuroCore.",
-            "Claims she was under the subfloor pipes in Sector C with a wrench.",
+            "A worker who fixes cooling pipes in the building.",
+            "I was under the pipes fixing a water leak with my wrench.",
+            "She wrote complaints about bad safety rules.",
+            "Claims she was under the floor pipes working.",
             0,
             "",
-            "I flagged the nitrogen purge override vulnerability two months ago! I wrote three internal tickets warning management that the security console had an unlogged bypass! They ignored me!"
+            "I told everyone that the emergency gas switch had no password! I warned them weeks ago!"
         ),
         (
             "suspect_grant",
             "case_cyber",
-            "Harrison Grant",
-            "NeuroCore Chief Operating Officer",
+            "Harrison (The Boss / COO)",
+            "Company Manager",
             52,
             "ceo",
-            "Corporate executive facing a SEC investigation over falsified quantum benchmark test results.",
-            "I was in my executive office on Level 1 on a conference call with our Tokyo investors.",
-            "Desperate to prevent an external technical audit scheduled for next Monday.",
-            "Claims he never came down to Level -3 during the night.",
+            "The rich company manager.",
+            "I was upstairs in my office on a phone call with investors.",
+            "The company was in trouble for test numbers.",
+            "Claims he stayed upstairs in his office.",
             0,
             "",
-            "If Aris dies and the core is damaged, our stock plunges 80 percent tomorrow morning! Why would I bankrupt my own enterprise?!"
+            "If that chip is stolen, our company loses all its value! Why would I ruin my own company?!"
         )
     ])
 
-    # Clues for Case 3
     cursor.executemany("""
     INSERT INTO clues (id, case_id, scene_id, title, category, short_desc, full_analysis, icon, is_key_evidence)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -613,10 +583,10 @@ def seed():
             "clue_nitrogen_purge",
             "case_cyber",
             "scene_q_vault",
-            "Manual Nitrogen Override Valve",
+            "The Emergency Gas Switch",
             "Forensic",
-            "The emergency fire-suppression override was actuated manually, flooding the vault with 100% nitrogen gas.",
-            "Fingerprint powder on the physical override valve matches Viktor Kroll's index finger, beneath a layer of thermal grease.",
+            "The wall switch that released gas into the room.",
+            "Fingerprint powder found Viktor the Security Guard's fingerprint right on the red gas switch!",
             "fa-wind",
             1
         ),
@@ -624,10 +594,10 @@ def seed():
             "clue_cloned_keycard",
             "case_cyber",
             "scene_security_hub",
-            "RFID Re-writer & Master Firmware Tool",
+            "Fake Camera Looper Device",
             "Physical",
-            "Found concealed behind the rack ventilation grille in the security command station.",
-            "Contains a script designed to spoof the biometric camera feed with a 15-second loop, allowing someone with physical security clearance to enter without generating a log entry.",
+            "A small device hidden behind the security desk fan.",
+            "It repeated an old 15-second video so the camera wouldn't show Viktor walking into the server room.",
             "fa-id-card",
             1
         ),
@@ -635,10 +605,10 @@ def seed():
             "clue_drive_shredder",
             "case_cyber",
             "scene_airlock",
-            "High-Field Degausser & Missing Storage Core",
+            "The Stolen Drive in an Oxygen Tank",
             "Physical",
-            "A magnetic degausser wand discovered hidden inside an emergency oxygen canister in the airlock.",
-            "The optical drive was extracted, but wiped with the wand after data was cloned onto a military-grade encrypted SSD found stashed in the locker assigned to security staff.",
+            "The stolen computer drive hidden inside a hollow oxygen tank in the locker.",
+            "The locker belongs to Viktor the security guard. The secret files were copied onto this drive.",
             "fa-hard-drive",
             1
         ),
@@ -646,40 +616,25 @@ def seed():
             "clue_bank_ledger",
             "case_cyber",
             "scene_security_hub",
-            "Encrypted Offshore Transfer Alert",
+            "Secret Bank Deposit Alert",
             "Document",
-            "A printout intercepted from the secure terminal printer: €2,500,000 escrow deposit.",
-            "Beneficiary account registered in the Cayman Islands tied to Viktor Kroll's personal passport number.",
+            "A printed bank paper found under the desk printer.",
+            "Shows 2.5 million dollars sent to Viktor's secret overseas bank account.",
             "fa-file-invoice-dollar",
             1
-        ),
-        (
-            "clue_algorithm_whiteboard",
-            "case_cyber",
-            "scene_lab_office",
-            "Dr. Thorne's Breakthrough Notes",
-            "Document",
-            "Whiteboard with mathematical proofs outlining quantum neural optimization.",
-            "Shows collaborative notes signed jointly by Thorne and Dr. Sarah Lin, proving mutual academic alignment.",
-            "fa-chalkboard-user",
-            0
         )
     ])
 
-    # Dialogues for Case 3
     cursor.executemany("""
     INSERT INTO suspect_dialogues (suspect_id, topic, question, answer, reaction_mood, unlocks_clue_id)
     VALUES (?, ?, ?, ?, ?, ?)
     """, [
-        ("suspect_viktor", "Access Logs", "Why is there a 15-minute gap in the security camera recording at 2:00 AM?", "The sub-level mainframe was conducting automated backup compression. It always causes minor frame drops.", "calm", "clue_cloned_keycard"),
-        ("suspect_viktor", "Nitrogen Valve", "Did you have reason to visit the manual nitrogen valve tonight?", "Negative. The valve is only touched in fire emergencies. I remained seated in front of my monitors.", "nervous", None),
-        ("suspect_viktor", "Offshore Finances", "Have you had contact with foreign technology buyers?", "Nonsense. I am a licensed security specialist. My finances are clean.", "angry", "clue_bank_ledger"),
-
-        ("suspect_sarah", "Working Relationship", "Did you resent Dr. Thorne for claiming the patents?", "We had intense debates on open-source philosophy, yes. But Aris was my mentor. I would never harm a hair on his head.", "calm", None),
-        ("suspect_maya", "Cooling System", "Could the nitrogen leak have been an accident caused by faulty valves?", "No way. The emergency dump valve requires two simultaneous physical actions: lifting the safety cover and turning the red dial 90 degrees. It was deliberate murder.", "calm", None)
+        ("suspect_viktor", "Camera Video", "Why did the camera freeze at 2:00 AM?", "Oh, the computer was doing a routine backup, that is normal.", "calm", "clue_cloned_keycard"),
+        ("suspect_viktor", "Gas Switch", "Did you touch the red gas switch?", "No, never! I stayed in my chair.", "nervous", None),
+        ("suspect_viktor", "Money", "Did someone send you money recently?", "No, I only get my normal salary.", "angry", "clue_bank_ledger"),
+        ("suspect_sarah", "Working Together", "Did you like Dr. Aris?", "Yes, he was my teacher and friend. I would never hurt him.", "calm", None)
     ])
 
-    # Contradictions for Case 3
     cursor.executemany("""
     INSERT INTO contradictions (suspect_id, clue_id, callout_text, suspect_response, breaks_alibi)
     VALUES (?, ?, ?, ?, ?)
@@ -687,27 +642,26 @@ def seed():
         (
             "suspect_viktor",
             "clue_nitrogen_purge",
-            "You stated you never touched the emergency valve, yet your latent fingerprint was discovered directly on the manual nitrogen override switch!",
-            "I... I might have inspected the valve during my afternoon rounds! That proves nothing!",
+            "You said you never touched the red gas switch, but your fingerprint was found right on it!",
+            "I... I might have cleaned it earlier! That proves nothing!",
             1
         ),
         (
             "suspect_viktor",
             "clue_cloned_keycard",
-            "We discovered an RFID firmware re-writer hidden behind your console grille that spoofed the biometric loop to hide your entry into the vault!",
-            "Where did you dig that up?! Someone planted that in my desk!",
+            "We found this camera looper device hidden in your desk that froze the cameras so you could sneak inside!",
+            "Where did you find that?! Someone put that in my desk!",
             1
         ),
         (
             "suspect_viktor",
             "clue_bank_ledger",
-            "Your Cayman account received an escrow alert for €2,500,000 from a foreign tech syndicate—matching the stolen quantum core!",
-            "Damn it... how did your cyber forensics bypass the encrypted buffer?!",
+            "A secret bank alert shows 2.5 million dollars sent to your overseas account for the stolen chip!",
+            "Darn it... you checked my bank records!",
             1
         )
     ])
 
-    # Case Solution for Case 3
     cursor.execute("""
     INSERT INTO case_solutions (case_id, culprit_suspect_id, weapon_clue_id, key_proof_clue_id, motive_summary, full_verdict_narrative)
     VALUES (?, ?, ?, ?, ?, ?)
@@ -716,13 +670,13 @@ def seed():
         "suspect_viktor",
         "clue_nitrogen_purge",
         "clue_drive_shredder",
-        "Multi-million euro corporate espionage sale of quantum cryptographic decryption keys.",
-        "Head of Security Viktor Kroll abused his security privileges to loop the CCTV surveillance feed and breach the quantum vault to steal the core for an offshore syndicate. Caught red-handed by Dr. Thorne during the data transfer, Kroll engaged the manual nitrogen purge to suffocate the scientist, then wiped the optical drives and hid the clone drive in an oxygen canister. Confronted with his fingerprints on the purge valve, the CCTV loop device, and the offshore bounty escrow, Kroll surrendered to cybercrime authorities."
+        "He wanted to sell the secret computer drive to a foreign buyer for 15 million dollars.",
+        "Security guard Viktor used a camera looper device to hide his steps, snuck into the server room, and copied the secret drive. When Dr. Aris surprised him, Viktor flipped the gas switch to knock him out and hid the stolen drive in an oxygen tank. Confronted with his fingerprints, the fake camera device, and the stolen drive, Viktor surrendered to police."
     ))
 
     conn.commit()
     conn.close()
-    print("Database successfully seeded with 3 full mystery cases!")
+    print("Database successfully re-seeded with Simple, Clear English!")
 
 if __name__ == "__main__":
     seed()
