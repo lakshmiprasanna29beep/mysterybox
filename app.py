@@ -1,7 +1,21 @@
 import os
 import sqlite3
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
-from database import get_db_connection
+from database import get_db_connection, init_db
+
+def ensure_db():
+    try:
+        conn = get_db_connection()
+        count = conn.execute("SELECT COUNT(*) FROM cases").fetchone()[0]
+        conn.close()
+        if count == 0:
+            from seed_data import seed
+            seed()
+    except Exception:
+        from seed_data import seed
+        seed()
+
+ensure_db()
 
 app = Flask(__name__)
 app.secret_key = "mysterybox-detective-classified-secret"
@@ -243,4 +257,4 @@ def api_reset_notes(case_id):
     return jsonify({"success": True})
 
 if __name__ == "__main__":
-    app.run(debug=True, host="127.0.0.1", port=5000)
+    app.run(debug=True, host="0.0.0.0", port=5000)
