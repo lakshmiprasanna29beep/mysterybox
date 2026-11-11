@@ -111,7 +111,7 @@
                 <i class="fa-solid fa-arrow-right btn-arrow-icon"></i>
             </button>
             <div class="action-sub-hint">
-                <i class="fa-solid fa-circle-info"></i> Full case briefing & live motion pictorial scenes awaiting
+                <i class="fa-solid fa-circle-info"></i> Full case briefing and a crime scene photo for every case
             </div>
         </div>
     </div>
@@ -119,7 +119,7 @@
 
 
 <!-- ========================================================
-     2. CASES SECTION: Full Description + Motion Pictorial Scene
+     2. CASES SECTION: Description beside the crime scene photo
      ======================================================== -->
 <section id="casesSection" class="cases-section" style="display:none;">
     <!-- Section Navigation Header -->
@@ -134,7 +134,7 @@
 
         <h2 class="cases-section-title">ACTIVE DETECTIVE INVESTIGATIONS</h2>
         <p class="cases-section-subtitle">
-            Study each case's full incident description and watch the relevant motion crime scene beside it. Choose your case to start solving!
+            Read each case beside the photo of its crime scene, then choose one to start solving.
         </p>
 
         <!-- Case Tabs Selector -->
@@ -162,7 +162,7 @@
         </div>
     </div>
 
-    <!-- Active Case Dossiers (Side-by-Side: Full Description on Left, Motion Scene on Right) -->
+    <!-- Active Case Dossiers (Side-by-Side: Description on the Left, Scene Photo on the Right) -->
     <div class="case-showcase-container">
         {% for case in cases %}
         <div class="case-showcase-card {% if loop.first %}active{% endif %}" id="showcase_{{ case['id'] }}">
@@ -257,218 +257,25 @@
                 </div>
             </div>
 
-            <!-- RIGHT COLUMN: Relevant Motion Pictorial Scene Beside It -->
-            <div class="showcase-right-motion">
-                <div class="motion-scene-frame">
-                    <div class="scene-live-badge">
-                        <span class="live-dot"></span> MOTION SCENE: {{ case['case_number'] }}
-                    </div>
-
-                    <!-- Motion Pictorial Scene 1: Vault & Stolen Blue Diamond -->
-                    {% if case['id'] == 'case_sapphire' %}
-                    <div class="motion-pictorial-art scene-sapphire">
-                        <!-- Background Manor Vault with Arched Window -->
-                        <div class="sapphire-window-frame">
-                            <div class="rain-streaks-layer"></div>
-                            <div class="lightning-flash-layer"></div>
-                            <div class="window-mullions"></div>
-                        </div>
-
-                        <!-- Heavy Open Vault Safe Door -->
-                        <div class="vault-safe-door">
-                            <div class="safe-dial-gears"></div>
-                            <div class="safe-interior-glow"></div>
-                            <div class="safe-handle-makeup" title="Purple Makeup Smudge">
-                                <span class="clue-pin-dot"></span>
-                            </div>
-                        </div>
-
-                        <!-- Pedestal with Glowing Blue Diamond in Motion -->
-                        <div class="vault-pedestal">
-                            <div class="diamond-levitate-group">
-                                <div class="diamond-glow-aura"></div>
-                                <div class="sapphire-gemstone">
-                                    <svg viewBox="0 0 100 100" class="gemstone-svg">
-                                        <polygon points="50,5 90,30 75,90 25,90 10,30" fill="url(#sapphireGradient)" stroke="#60a5fa" stroke-width="2"/>
-                                        <polygon points="50,5 50,45 10,30" fill="rgba(255,255,255,0.25)"/>
-                                        <polygon points="50,5 90,30 50,45" fill="rgba(147,197,253,0.3)"/>
-                                        <polygon points="50,45 75,90 50,95" fill="rgba(37,99,235,0.4)"/>
-                                        <polygon points="50,45 25,90 50,95" fill="rgba(30,64,175,0.6)"/>
-                                        <defs>
-                                            <linearGradient id="sapphireGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                                <stop offset="0%" stop-color="#93c5fd"/>
-                                                <stop offset="40%" stop-color="#3b82f6"/>
-                                                <stop offset="100%" stop-color="#1e3a8a"/>
-                                            </linearGradient>
-                                        </defs>
-                                    </svg>
-                                </div>
-                                <div class="sparkle-star sp-1">✦</div>
-                                <div class="sparkle-star sp-2">✦</div>
-                                <div class="sparkle-star sp-3">✦</div>
-                            </div>
-                            <div class="pedestal-column"></div>
-                        </div>
-
-                        <!-- Laser Alarm Grids Moving -->
-                        <div class="laser-alarm-beam laser-1"></div>
-                        <div class="laser-alarm-beam laser-2"></div>
-
-                        <!-- Physical Clues in Motion Scene -->
-                        <div class="scene-clue-marker marker-lighter" title="Julian's Dropped Silver Lighter">
-                            <i class="fa-solid fa-fire-flame-simple"></i>
-                            <div class="smoke-wisp"></div>
-                        </div>
-                        <div class="scene-clue-marker marker-thread" title="Purple Silk Thread on Grate">
-                            <span class="silk-thread-fiber"></span>
-                        </div>
-                        <div class="scene-clue-marker marker-mud" title="Muddy Footprints">
-                            <i class="fa-solid fa-shoe-prints"></i>
-                        </div>
-
-                        <!-- Motion Caption -->
-                        <div class="motion-scene-caption">
-                            <strong><i class="fa-solid fa-gem"></i> The Vault Room at Midnight</strong>
-                            <span>Heavy safe left wide open. Rainstorm outside. The \$4M Blue Diamond vanished into the dark!</span>
-                        </div>
-                    </div>
-
-                    <!-- Motion Pictorial Scene 2: Poisoned Tea at Concert Hall -->
-                    {% elif case['id'] == 'case_sonata' %}
-                    <div class="motion-pictorial-art scene-sonata">
-                        <!-- Theater Velvet Drapery -->
-                        <div class="theater-curtain curtain-left"></div>
-                        <div class="theater-curtain curtain-right"></div>
-                        
-                        <!-- Flickering Chandelier -->
-                        <div class="chandeliers-row">
-                            <div class="chandelier-item">
-                                <div class="chandelier-glow"></div>
-                                <i class="fa-solid fa-lightbulb"></i>
-                            </div>
-                        </div>
-
-                        <!-- Spotlight Cone onto Conductor's Stand -->
-                        <div class="stage-spotlight-cone"></div>
-
-                        <!-- Conductor's Table & Poisoned Steaming Teacup -->
-                        <div class="stage-podium-table">
-                            <!-- Steaming Poison Teacup -->
-                            <div class="poison-tea-group">
-                                <!-- Swirling Toxic Poison Steam Rising in Motion -->
-                                <div class="toxic-steam-cloud steam-1"></div>
-                                <div class="toxic-steam-cloud steam-2"></div>
-                                <div class="toxic-steam-cloud steam-3"></div>
-                                <div class="toxic-bubbles">
-                                    <span class="bubble b1"></span>
-                                    <span class="bubble b2"></span>
-                                    <span class="bubble b3"></span>
-                                </div>
-                                <div class="teacup-porcelain">
-                                    <div class="cup-rim"></div>
-                                    <div class="cup-handle"></div>
-                                    <div class="poison-liquid"></div>
-                                </div>
-                                <div class="teacup-saucer"></div>
-                            </div>
-
-                            <!-- Overturned Violin & Fluttering Sheet Music -->
-                            <div class="stage-violin-prop">
-                                <i class="fa-solid fa-music music-note n1"></i>
-                                <i class="fa-solid fa-music music-note n2"></i>
-                                <div class="violin-shape">
-                                    <span class="broken-string"></span>
-                                </div>
-                                <div class="sheet-music-paper">
-                                    <div class="sheet-lines"></div>
-                                </div>
-                            </div>
-
-                            <!-- Oliver's Dropped Poison Locket -->
-                            <div class="scene-clue-marker marker-locket" title="Oliver's Silver Poison Locket">
-                                <i class="fa-solid fa-heart"></i>
-                                <span class="poison-powder-trace"></span>
-                            </div>
-                        </div>
-
-                        <!-- Motion Caption -->
-                        <div class="motion-scene-caption">
-                            <strong><i class="fa-solid fa-mug-hot"></i> Royal Concert Hall Center Stage</strong>
-                            <span>Deadly cyanide tea cup on the conductor's podium with eerie toxic vapors rising.</span>
-                        </div>
-                    </div>
-
-                    <!-- Motion Pictorial Scene 3: Cold Server Vault & Stolen Computer Chip -->
+            <!-- RIGHT COLUMN: Crime scene photo beside the description -->
+            <div class="showcase-right-scene">
+                <figure class="case-scene-figure">
+                    {% if case['scene_image'] %}
+                    <img
+                        src="{{ url_for('static', filename=case['scene_image']) }}"
+                        alt="Crime scene for {{ case['title'] }}"
+                        class="case-scene-photo">
                     {% else %}
-                    <div class="motion-pictorial-art scene-cyber">
-                        <!-- Server Racks with Blinking LED Arrays -->
-                        <div class="server-racks-backdrop">
-                            <div class="server-rack rack-left">
-                                <div class="rack-unit u1"><span class="led green blink"></span><span class="led cyan blink-fast"></span><span class="led amber"></span></div>
-                                <div class="rack-unit u2"><span class="led cyan blink"></span><span class="led green"></span><span class="led cyan blink-slow"></span></div>
-                                <div class="rack-unit u3"><span class="led green blink-fast"></span><span class="led amber blink"></span><span class="led cyan"></span></div>
-                                <div class="rack-unit u4"><span class="led red blink"></span><span class="led green"></span><span class="led cyan blink"></span></div>
-                            </div>
-                            <div class="server-rack rack-right">
-                                <div class="rack-unit u1"><span class="led cyan blink-fast"></span><span class="led green blink"></span><span class="led green"></span></div>
-                                <div class="rack-unit u2"><span class="led red blink"></span><span class="led amber"></span><span class="led cyan blink"></span></div>
-                                <div class="rack-unit u3"><span class="led green"></span><span class="led cyan blink"></span><span class="led green blink-fast"></span></div>
-                                <div class="rack-unit u4"><span class="led cyan blink"></span><span class="led amber blink"></span><span class="led green"></span></div>
-                            </div>
-                        </div>
-
-                        <!-- Cryogenic Nitrogen Mist Billowing on Floor -->
-                        <div class="cryo-fog-layer fog-layer-1"></div>
-                        <div class="cryo-fog-layer fog-layer-2"></div>
-
-                        <!-- Holographic Radar Sweep -->
-                        <div class="radar-scan-line"></div>
-
-                        <!-- Central Shattered Vault & Stolen Chip Socket -->
-                        <div class="chip-terminal-pedestal">
-                            <div class="shattered-glass-dome">
-                                <div class="glass-crack crack-1"></div>
-                                <div class="glass-crack crack-2"></div>
-                            </div>
-                            <!-- Empty Socket with Ripped Sparking Fiber Cables -->
-                            <div class="empty-chip-socket">
-                                <div class="socket-grid">
-                                    <div class="socket-pin"></div>
-                                    <div class="socket-pin"></div>
-                                    <div class="socket-pin"></div>
-                                    <div class="socket-pin"></div>
-                                </div>
-                                <!-- Spark Discharges in Motion -->
-                                <div class="electric-spark spark-1">⚡</div>
-                                <div class="electric-spark spark-2">⚡</div>
-                                <div class="torn-fiber-cable cable-1"></div>
-                                <div class="torn-fiber-cable cable-2"></div>
-                            </div>
-                        </div>
-
-                        <!-- Emergency Gas Release Switch & Clues -->
-                        <div class="scene-clue-marker marker-gas" title="Emergency Gas Switch Flipped">
-                            <div class="red-switch-box">
-                                <span class="switch-toggle active"></span>
-                            </div>
-                        </div>
-
-                        <!-- Motion Caption -->
-                        <div class="motion-scene-caption">
-                            <strong><i class="fa-solid fa-microchip"></i> Cold Server Vault at 2:15 AM</strong>
-                            <span>Sub-zero nitrogen fog, severed sparking circuits, and the classified AI chip stolen!</span>
-                        </div>
+                    <div class="case-scene-missing">
+                        <i class="fa-solid fa-image"></i>
+                        <p>This case does not have a scene photo yet.</p>
                     </div>
                     {% endif %}
-
-                    <!-- Interactive Scene Zoom / Magnifying Glass Tooltip -->
-                    <div class="motion-scene-overlay-tools">
-                        <span class="scene-hint-pill"><i class="fa-solid fa-eye"></i> Live Animated Motion Scene</span>
-                        <a href="{{ url_for('case_view', case_id=case['id']) }}" class="btn-scene-examine">
-                            <i class="fa-solid fa-magnifying-glass"></i> Inspect Crime Scene
-                        </a>
-                    </div>
-                </div>
+                    <figcaption class="case-scene-caption">
+                        <strong><i class="fa-solid {{ case['icon'] }}"></i> {{ case['location'] }}</strong>
+                        <span>{{ case['incident_summary'] }}</span>
+                    </figcaption>
+                </figure>
             </div>
 
         </div>

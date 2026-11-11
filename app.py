@@ -20,6 +20,19 @@ ensure_db()
 app = Flask(__name__)
 app.secret_key = "mysterybox-detective-classified-secret"
 
+CASE_SCENE_IMAGES = {
+    "case_sapphire": "images/case1_scene.jpg",
+    "case_sonata": "images/case2_scene.jpg",
+    "case_cyber": "images/case3_scene.jpg",
+}
+
+def scene_image_for(case_id):
+    relative = CASE_SCENE_IMAGES.get(case_id)
+    if not relative:
+        return None
+    path = os.path.join(app.static_folder, relative.replace("/", os.sep))
+    return relative if os.path.isfile(path) else None
+
 @app.route("/")
 def index():
     conn = get_db_connection()
@@ -33,6 +46,7 @@ def index():
         c_dict["suspects"] = [dict(s) for s in suspects]
         c_dict["scenes"] = [dict(sc) for sc in scenes]
         c_dict["clues"] = [dict(cl) for cl in clues]
+        c_dict["scene_image"] = scene_image_for(c["id"])
         cases.append(c_dict)
     conn.close()
     return render_template("index.html", cases=cases)

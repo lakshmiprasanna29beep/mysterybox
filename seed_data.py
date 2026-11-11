@@ -285,8 +285,8 @@ def seed():
         "8:15 PM (Music Rehearsal)",
         "Arturo Vane",
         "Famous Music Conductor",
-        "During a music rehearsal, conductor Arturo Vane drank warm tea from his cup on stage. Suddenly, he fell to the floor and died! The doctor found poison (cyanide) in his tea cup. The doors were locked, so only 4 people working backstage could have touched his tea.",
-        "The conductor died from poison in his tea. Only 4 people had access to his tea cup before he walked on stage.",
+        "It was rehearsal night at the Royal Concert Hall. Conductor Arturo Vane lifted his usual cup of warm tea from the stand at center stage, took one sip, and fell. He was dead before help arrived. The doctor found cyanide in the tea. The honey jar in the tea room was clean, so the poison was poured into the cup itself after the tea was made. The hall doors were locked. Only four people backstage could have touched that cup: the violin player, the stage manager who carried the tea, the pianist, and the rich sponsor watching from upstairs.",
+        "The conductor died from poison poured into his tea cup. Only the stage manager carried that cup to the stand.",
         "fa-music",
         "#8b5cf6"
     ))
@@ -493,8 +493,8 @@ def seed():
         "2:15 AM (Night Shift)",
         "Dr. Aris",
         "Chief Computer Scientist",
-        "At 2:15 AM, the security alarm rang in the cold server vault. Dr. Aris was found unconscious on the floor because gas was turned on. The most important computer storage drive with secret AI technology was ripped out and stolen. Only 4 people were in the building tonight.",
-        "Dr. Aris was stopped with gas and the secret computer chip was stolen. Someone turned off cameras and took the drive.",
+        "At 2:15 AM the alarm went off in the cold server vault at the Cambridge tech lab. Dr. Aris, the chief scientist, was lying unconscious on the floor. Someone had flipped the red emergency gas switch and knocked him out. The glass case in the middle of the room was smashed, and the secret AI computer chip was gone. The security cameras showed an old loop of video, so they never recorded who walked in. Only four people were inside the building: the engineer, the security guard, the cooling technician, and the company boss.",
+        "Dr. Aris was knocked out with gas, the cameras were frozen, and the secret computer chip was stolen.",
         "fa-microchip",
         "#10b981"
     ))
