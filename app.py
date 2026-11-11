@@ -23,7 +23,17 @@ app.secret_key = "mysterybox-detective-classified-secret"
 @app.route("/")
 def index():
     conn = get_db_connection()
-    cases = conn.execute("SELECT * FROM cases").fetchall()
+    cases_raw = conn.execute("SELECT * FROM cases").fetchall()
+    cases = []
+    for c in cases_raw:
+        c_dict = dict(c)
+        suspects = conn.execute("SELECT id, name, role, bio, avatar_svg FROM suspects WHERE case_id = ?", (c["id"],)).fetchall()
+        scenes = conn.execute("SELECT id, name, description, icon FROM crime_scenes WHERE case_id = ?", (c["id"],)).fetchall()
+        clues = conn.execute("SELECT id, title, category, short_desc, icon FROM clues WHERE case_id = ?", (c["id"],)).fetchall()
+        c_dict["suspects"] = [dict(s) for s in suspects]
+        c_dict["scenes"] = [dict(sc) for sc in scenes]
+        c_dict["clues"] = [dict(cl) for cl in clues]
+        cases.append(c_dict)
     conn.close()
     return render_template("index.html", cases=cases)
 

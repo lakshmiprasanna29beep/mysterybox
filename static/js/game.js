@@ -688,3 +688,222 @@ function getAvatarEmoji(name) {
     };
     return map[name] || '👤';
 }
+
+/* ============================================================
+   WELCOME SCREEN & CASES SHOWCASE ENGINE (Homepage Interactivity)
+   ============================================================ */
+let caseIdsList = [];
+let currentShowcaseIndex = 0;
+
+function openCasesView(shouldScroll = true) {
+    sounds.clueDiscovered();
+    const welcomeSection = document.getElementById('welcomeSection');
+    const casesSection = document.getElementById('casesSection');
+    if (!welcomeSection || !casesSection) return;
+
+    welcomeSection.style.display = 'none';
+    casesSection.style.display = 'block';
+    window.location.hash = 'cases';
+
+    if (shouldScroll) {
+        casesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function openWelcomeView(shouldScroll = true) {
+    sounds.typewriter();
+    const welcomeSection = document.getElementById('welcomeSection');
+    const casesSection = document.getElementById('casesSection');
+    if (!welcomeSection || !casesSection) return;
+
+    casesSection.style.display = 'none';
+    welcomeSection.style.display = 'block';
+    window.location.hash = 'welcome';
+
+    if (shouldScroll) {
+        welcomeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function switchCaseShowcase(caseId, index = -1) {
+    sounds.typewriter();
+    if (index >= 0) {
+        currentShowcaseIndex = index;
+    } else {
+        const found = caseIdsList.indexOf(caseId);
+        if (found !== -1) currentShowcaseIndex = found;
+    }
+
+    // Update active tab buttons
+    document.querySelectorAll('.case-tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.id === `caseTab_${caseId}`);
+    });
+
+    // Update active showcase card
+    document.querySelectorAll('.case-showcase-card').forEach(card => {
+        card.classList.toggle('active', card.id === `showcase_${caseId}`);
+    });
+
+    // Update index counter
+    const counter = document.getElementById('caseIndexCounter');
+    if (counter && caseIdsList.length > 0) {
+        counter.textContent = `Case ${currentShowcaseIndex + 1} of ${caseIdsList.length}`;
+    }
+}
+
+function cyclePrevCase() {
+    if (caseIdsList.length === 0) return;
+    currentShowcaseIndex = (currentShowcaseIndex - 1 + caseIdsList.length) % caseIdsList.length;
+    switchCaseShowcase(caseIdsList[currentShowcaseIndex], currentShowcaseIndex);
+}
+
+function cycleNextCase() {
+    if (caseIdsList.length === 0) return;
+    currentShowcaseIndex = (currentShowcaseIndex + 1) % caseIdsList.length;
+    switchCaseShowcase(caseIdsList[currentShowcaseIndex], currentShowcaseIndex);
+}
+
+// Interactive Detective Magnifying Glass
+function setupDetectiveSearchInteractive() {
+    const scene = document.getElementById('detectiveSearchScene');
+    const armLens = document.getElementById('detectiveArmLens');
+    const popup = document.getElementById('sceneCluePopup');
+    const popupText = document.getElementById('sceneClueText');
+    const floorClues = document.querySelectorAll('.floor-clue');
+
+    if (!scene || !armLens) return;
+
+    let hoverTimeout = null;
+
+    // Interactive mouse exploration: aim the detective's magnifying lens
+    scene.addEventListener('mousemove', (e) => {
+        const rect = scene.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        // Shoulder origin inside detective figure
+        const shoulderX = 140;
+        const shoulderY = 180;
+
+        // Pause automatic CSS patrol keyframe
+        armLens.style.animation = 'none';
+
+        // Calculate angle and distance
+        const dx = mouseX - shoulderX;
+        const dy = mouseY - shoulderY;
+        let angle = Math.atan2(dy, dx) * (180 / Math.PI);
+        // Clamp angle
+        angle = Math.max(-20, Math.min(45, angle));
+        const distance = Math.min(520, Math.max(80, Math.sqrt(dx * dx + dy * dy)));
+
+        const translateX = (distance - 80) * 0.8;
+        armLens.style.transform = `rotate(${angle.toFixed(1)}deg) translate(${translateX.toFixed(1)}px, 0px)`;
+
+        // Check proximity to floor clues
+        floorClues.forEach(clue => {
+            const clueRect = clue.getBoundingClientRect();
+            const clueCenterX = clueRect.left + clueRect.width / 2;
+            const clueCenterY = clueRect.top + clueRect.height / 2;
+            const distToCursor = Math.hypot(e.clientX - clueCenterX, e.clientY - clueCenterY);
+
+            if (distToCursor < 90) {
+                clue.classList.add('illuminated');
+            } else {
+                clue.classList.remove('illuminated');
+            }
+        });
+    });
+
+    // When mouse leaves, resume smooth automatic patrol
+    scene.addEventListener('mouseleave', () => {
+        armLens.style.animation = 'searchPatrol 7s ease-in-out infinite alternate';
+        armLens.style.transform = '';
+        floorClues.forEach(clue => clue.classList.remove('illuminated'));
+    });
+
+    // Clicking clues inside scene
+    floorClues.forEach(clue => {
+        clue.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sounds.clueDiscovered();
+            const text = clue.getAttribute('data-clue') || "Evidence located!";
+            if (popup && popupText) {
+                popupText.textContent = text;
+                popup.classList.add('active');
+                clearTimeout(hoverTimeout);
+                hoverTimeout = setTimeout(() => {
+                    popup.classList.remove('active');
+                }, 2800);
+            }
+        });
+    });
+}
+
+// Initialize Homepage
+function initHomepage() {
+    const welcomeSection = document.getElementById('welcomeSection');
+    if (!welcomeSection) return; // Not on index page
+
+    // Sound button setup on index page
+    const soundBtn = document.getElementById('soundToggleBtn');
+    if (soundBtn) {
+        updateSoundBtnUi(soundBtn);
+        soundBtn.addEventListener('click', () => {
+            const state = sounds.toggle();
+            updateSoundBtnUi(soundBtn);
+            showToast(`Audio effects ${state ? 'enabled' : 'muted'}`);
+        });
+    }
+
+    // Collect case IDs from tabs
+    const tabBtns = document.querySelectorAll('.case-tab-btn');
+    caseIdsList = Array.from(tabBtns).map(btn => btn.id.replace('caseTab_', ''));
+
+    // Setup interactive search scene
+    setupDetectiveSearchInteractive();
+
+    // Check URL hash
+    if (window.location.hash === '#cases') {
+        openCasesView(false);
+    } else {
+        openWelcomeView(false);
+    }
+
+    // Keyboard arrow navigation between cases
+    window.addEventListener('keydown', (e) => {
+        const casesSection = document.getElementById('casesSection');
+        if (casesSection && casesSection.style.display !== 'none') {
+            if (e.key === 'ArrowLeft') cyclePrevCase();
+            if (e.key === 'ArrowRight') cycleNextCase();
+        }
+    });
+
+    // Hook up navbar links
+    const navWelcomeBtn = document.getElementById('navWelcomeBtn');
+    if (navWelcomeBtn) {
+        navWelcomeBtn.addEventListener('click', (e) => {
+            if (document.getElementById('welcomeSection')) {
+                e.preventDefault();
+                openWelcomeView();
+            }
+        });
+    }
+
+    const navCasesBtn = document.getElementById('navCasesBtn');
+    if (navCasesBtn) {
+        navCasesBtn.addEventListener('click', (e) => {
+            if (document.getElementById('casesSection')) {
+                e.preventDefault();
+                openCasesView();
+            }
+        });
+    }
+}
+
+// Auto-run on DOM ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHomepage);
+} else {
+    initHomepage();
+}
+

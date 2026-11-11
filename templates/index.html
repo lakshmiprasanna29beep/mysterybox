@@ -1,93 +1,619 @@
 {% extends "base.html" %}
 
-{% block title %}Mystery Cases | MysteryBox{% endblock %}
+{% block title %}MysteryBox – Detective Mystery Game{% endblock %}
 
 {% block content %}
-<div class="hero-hub">
-    <div class="badge-stamp" style="margin-bottom: 0.8rem;">DETECTIVE MYSTERY BOX</div>
-    <h2>Pick a Mystery Case to Solve!</h2>
-    <p>Look at the clues in each room, talk to the 4 suspects, catch them in their lies, and find out who did it!</p>
+<!-- ========================================================
+     1. WELCOME SCREEN: Detective with Magnifying Lens
+     ======================================================== -->
+<section id="welcomeSection" class="welcome-section">
+    <div class="welcome-container">
+        <!-- Top Bureau Badge -->
+        <div class="welcome-top-badge">
+            <span class="badge-stamp">CLASSIFIED DETECTIVE BUREAU</span>
+            <span class="badge-sub"><i class="fa-solid fa-shield-halved"></i> SCOTLAND YARD • SPECIAL INVESTIGATIONS</span>
+        </div>
 
-    <div class="detective-stats-bar">
-        <div class="stat-pill">
-            <i class="fa-solid fa-briefcase"></i>
-            <span>Cases: <span class="stat-val">{{ cases|length }}</span></span>
+        <!-- Main Title -->
+        <h1 class="welcome-headline">WELCOME TO THE MYSTERY BOX</h1>
+        <p class="welcome-subtext">
+            Step into the shadows of unsolved crime. Search crime scenes for hidden clues, interrogate deceitful suspects, expose contradictory alibis, and crack the mystery before time runs out!
+        </p>
+
+        <!-- Motion Pictorial Scene: Detective with Magnifying Lens Searching For Clues -->
+        <div class="detective-search-wrapper" id="detectiveSearchWrapper">
+            <div class="scene-ambient-fog"></div>
+            
+            <div class="detective-search-scene" id="detectiveSearchScene">
+                <!-- Wall & Floor Setting -->
+                <div class="scene-background-grid">
+                    <div class="noir-window">
+                        <div class="window-rain"></div>
+                    </div>
+                    <div class="scene-shelf">
+                        <i class="fa-solid fa-book-bookmark"></i>
+                        <i class="fa-solid fa-box-archive"></i>
+                        <i class="fa-solid fa-skull"></i>
+                    </div>
+                </div>
+
+                <!-- Crime Scene Floor with Clues that Light Up -->
+                <div class="crime-floor">
+                    <!-- Clue 1: Neon Cyan Fingerprint -->
+                    <div class="floor-clue clue-fingerprint" id="searchClue1" data-clue="Forensic Fingerprint Found!" title="Inspect Fingerprint">
+                        <svg viewBox="0 0 100 100" class="clue-svg fingerprint-svg">
+                            <path d="M50,15 A35,35 0 0,0 20,50 A30,30 0 0,0 35,75 M50,25 A25,25 0 0,0 30,50 A20,20 0 0,0 45,70 M50,35 A15,15 0 0,0 40,50 M60,50 A10,10 0 0,1 50,60 M70,50 A20,20 0 0,1 50,70 M80,50 A30,30 0 0,1 50,80" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                        <span class="clue-label"><i class="fa-solid fa-fingerprint"></i> Fingerprint</span>
+                    </div>
+
+                    <!-- Clue 2: Muddy Footprints Trail -->
+                    <div class="floor-clue clue-footprints" id="searchClue2" data-clue="Muddy Shoe Tracks Located!" title="Inspect Footprints">
+                        <div class="footprint-step step-1"><i class="fa-solid fa-shoe-prints"></i></div>
+                        <div class="footprint-step step-2"><i class="fa-solid fa-shoe-prints"></i></div>
+                        <div class="footprint-step step-3"><i class="fa-solid fa-shoe-prints"></i></div>
+                        <span class="clue-label"><i class="fa-solid fa-shoe-prints"></i> Muddy Trail</span>
+                    </div>
+
+                    <!-- Clue 3: Sparkling Stolen Gem -->
+                    <div class="floor-clue clue-gem" id="searchClue3" data-clue="Valuable Stolen Jewel Fragment!" title="Inspect Gem">
+                        <div class="gem-sparkle-core">
+                            <i class="fa-solid fa-gem"></i>
+                            <div class="sparkle-flare s1">✦</div>
+                            <div class="sparkle-flare s2">✦</div>
+                        </div>
+                        <span class="clue-label"><i class="fa-solid fa-gem"></i> Rare Jewel</span>
+                    </div>
+
+                    <!-- Clue 4: Classified Letter / Ticket -->
+                    <div class="floor-clue clue-envelope" id="searchClue4" data-clue="Secret Train Ticket & Letter!" title="Inspect Document">
+                        <div class="envelope-item">
+                            <i class="fa-solid fa-envelope"></i>
+                            <span class="wax-seal">●</span>
+                        </div>
+                        <span class="clue-label"><i class="fa-solid fa-file-contract"></i> Evidence File</span>
+                    </div>
+
+                    <!-- Clue 5: Dropped Silver Lighter / Watch -->
+                    <div class="floor-clue clue-watch" id="searchClue5" data-clue="Dropped Clock Stopped at 11:45 PM!" title="Inspect Watch">
+                        <div class="watch-item">
+                            <i class="fa-solid fa-stopwatch"></i>
+                        </div>
+                        <span class="clue-label"><i class="fa-solid fa-clock"></i> 11:45 PM</span>
+                    </div>
+                </div>
+
+                <!-- Detective Figure with Moving Magnifying Lens -->
+                <div class="detective-figure-group" id="detectiveFigure">
+                    <!-- Detective Silhouette / Body -->
+                    <div class="detective-body">
+                        <!-- Fedora Hat -->
+                        <div class="fedora-hat">
+                            <div class="hat-brim"></div>
+                            <div class="hat-crown">
+                                <div class="hat-band"></div>
+                            </div>
+                        </div>
+                        <!-- Head & Shadowed Face -->
+                        <div class="detective-head">
+                            <div class="collar-turnup-left"></div>
+                            <div class="collar-turnup-right"></div>
+                            <div class="cigar-glow"></div>
+                        </div>
+                        <!-- Trench Coat & Torso -->
+                        <div class="trench-coat">
+                            <div class="coat-belt"></div>
+                            <div class="coat-tails"></div>
+                        </div>
+                        <!-- Detective Legs -->
+                        <div class="detective-legs">
+                            <div class="leg left-leg"></div>
+                            <div class="leg right-leg"></div>
+                        </div>
+                    </div>
+
+                    <!-- Detective Arm Holding Magnifying Lens -->
+                    <div class="detective-arm-lens" id="detectiveArmLens">
+                        <div class="arm-sleeve"></div>
+                        <div class="brass-hand"></div>
+                        <!-- The Moving Magnifying Lens -->
+                        <div class="magnifying-lens" id="magnifyingLens">
+                            <div class="lens-handle"></div>
+                            <div class="lens-rim">
+                                <div class="lens-glass">
+                                    <div class="lens-glint"></div>
+                                    <div class="lens-crosshair"></div>
+                                </div>
+                            </div>
+                            <!-- Glowing Search Beam projected onto floor -->
+                            <div class="lens-beam" id="lensBeam"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hover Tip / Scene Interactive Notice -->
+                <div class="scene-hint-badge">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <span>Move cursor across floor or watch the detective sweep for clues</span>
+                </div>
+
+                <!-- Clue Toast Popup inside Scene -->
+                <div id="sceneCluePopup" class="scene-clue-popup">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span id="sceneClueText">Investigating crime scene...</span>
+                </div>
+            </div>
         </div>
-        <div class="stat-pill">
-            <i class="fa-solid fa-award"></i>
-            <span>Rank: <span class="stat-val" style="color:var(--accent-gold);">Junior Detective</span></span>
+
+        <!-- Detective Mission Brief Cards -->
+        <div class="welcome-stats-row">
+            <div class="welcome-stat-box">
+                <i class="fa-solid fa-folder-closed stat-icon gold"></i>
+                <div class="stat-text">
+                    <strong>3 Unsolved Cases</strong>
+                    <span>Mansions, Concert Halls, Cyber Labs</span>
+                </div>
+            </div>
+            <div class="welcome-stat-box">
+                <i class="fa-solid fa-users stat-icon blue"></i>
+                <div class="stat-text">
+                    <strong>4 Suspects Per Case</strong>
+                    <span>Interrogate & detect contradictions</span>
+                </div>
+            </div>
+            <div class="welcome-stat-box">
+                <i class="fa-solid fa-handcuffs stat-icon crimson"></i>
+                <div class="stat-text">
+                    <strong>Make The Arrest</strong>
+                    <span>Present key proof & score 1000 pts</span>
+                </div>
+            </div>
         </div>
-        <div class="stat-pill">
-            <i class="fa-solid fa-scale-balanced"></i>
-            <span>Status: <span class="stat-val" style="color:var(--accent-emerald);">Ready to Play</span></span>
+
+        <!-- The NEXT BUTTON -->
+        <div class="welcome-action-wrap">
+            <button id="btnNextToCases" class="btn-welcome-next" onclick="openCasesView()">
+                <div class="btn-shine"></div>
+                <i class="fa-solid fa-folder-open"></i>
+                <div class="btn-text-col">
+                    <span class="btn-main-title">OPEN CASE DOSSIERS</span>
+                    <span class="btn-sub-title">Step Inside & Investigate The Cases</span>
+                </div>
+                <i class="fa-solid fa-arrow-right btn-arrow-icon"></i>
+            </button>
+            <div class="action-sub-hint">
+                <i class="fa-solid fa-circle-info"></i> Full case briefing & live motion pictorial scenes awaiting
+            </div>
         </div>
     </div>
-</div>
+</section>
 
-<!-- Cases Grid -->
-<div class="cases-container">
-    {% for case in cases %}
-    <div class="case-card">
-        <div class="case-card-header">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span class="case-num-pill">{{ case['case_number'] }}</span>
+
+<!-- ========================================================
+     2. CASES SECTION: Full Description + Motion Pictorial Scene
+     ======================================================== -->
+<section id="casesSection" class="cases-section" style="display:none;">
+    <!-- Section Navigation Header -->
+    <div class="cases-hero-header">
+        <div class="cases-nav-breadcrumb">
+            <button class="btn-breadcrumb-back" onclick="openWelcomeView()">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Back to Welcome Intro</span>
+            </button>
+            <div class="badge-stamp">CASE ARCHIVES</div>
+        </div>
+
+        <h2 class="cases-section-title">ACTIVE DETECTIVE INVESTIGATIONS</h2>
+        <p class="cases-section-subtitle">
+            Study each case's full incident description and watch the relevant motion crime scene beside it. Choose your case to start solving!
+        </p>
+
+        <!-- Case Tabs Selector -->
+        <div class="case-tabs-bar">
+            {% for case in cases %}
+            <button class="case-tab-btn {% if loop.first %}active{% endif %}" 
+                    id="caseTab_{{ case['id'] }}" 
+                    onclick="switchCaseShowcase('{{ case['id'] }}', {{ loop.index0 }})">
+                <span class="tab-num">{{ case['case_number'] }}</span>
+                <span class="tab-name">{{ case['title'] }}</span>
                 <span class="badge-tag {{ case['difficulty']|lower }}">{{ case['difficulty'] }}</span>
-            </div>
-            <h3 class="case-card-title">{{ case['title'] }}</h3>
-            <div class="case-card-tagline">{{ case['tagline'] }}</div>
+            </button>
+            {% endfor %}
         </div>
 
-        <div class="case-card-body">
-            <div class="case-metadata-row">
-                <div><strong>Victim:</strong> {{ case['victim'] }} ({{ case['victim_role'] }})</div>
-                <div><strong>Location:</strong> {{ case['location'] }}</div>
-                <div><strong>Time:</strong> {{ case['incident_time'] }}</div>
-            </div>
-
-            <div class="case-card-briefing">
-                {{ case['briefing'] }}
-            </div>
-        </div>
-
-        <div class="case-card-footer">
-            <div style="display:flex; align-items:center; gap:0.5rem; font-size:0.8rem; color:var(--text-dim);">
-                <i class="fa-solid fa-folder-open" style="color:var(--accent-gold);"></i>
-                <span>Ready to Solve</span>
-            </div>
-            <a href="{{ url_for('case_view', case_id=case['id']) }}" class="btn-open-dossier">
-                <span>Play Case</span>
-                <i class="fa-solid fa-arrow-right"></i>
-            </a>
+        <!-- Quick Prev / Next Arrows -->
+        <div class="cases-quick-nav">
+            <button class="btn-quick-arrow" onclick="cyclePrevCase()" title="Previous Case">
+                <i class="fa-solid fa-chevron-left"></i> Previous Case
+            </button>
+            <span class="case-index-counter" id="caseIndexCounter">Case 1 of {{ cases|length }}</span>
+            <button class="btn-quick-arrow" onclick="cycleNextCase()" title="Next Case">
+                Next Case <i class="fa-solid fa-chevron-right"></i>
+            </button>
         </div>
     </div>
-    {% endfor %}
-</div>
 
-<!-- Simple 4-Step Instructions -->
-<div style="max-width: 1200px; margin: 0 auto 5rem; padding: 0 1.5rem;">
-    <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:12px; padding:2rem;">
-        <h3 style="font-family:var(--font-title); color:#fff; font-size:1.3rem; margin-bottom:1.25rem; display:flex; align-items:center; gap:0.6rem;">
-            <i class="fa-solid fa-star" style="color:var(--accent-gold);"></i>
-            <span>How to Play (4 Simple Steps)</span>
-        </h3>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1.5rem;">
-            <div style="background:#12151b; padding:1.25rem; border-radius:8px; border-left:3px solid var(--accent-blue);">
-                <h4 style="color:#fff; font-size:1rem; margin-bottom:0.4rem;"><i class="fa-solid fa-magnifying-glass"></i> 1. Look at Clues</h4>
-                <p style="font-size:0.85rem; color:var(--text-muted);">Click on rooms and look at the clues found by police. Click "Inspect" to see secret details.</p>
+    <!-- Active Case Dossiers (Side-by-Side: Full Description on Left, Motion Scene on Right) -->
+    <div class="case-showcase-container">
+        {% for case in cases %}
+        <div class="case-showcase-card {% if loop.first %}active{% endif %}" id="showcase_{{ case['id'] }}">
+            
+            <!-- LEFT COLUMN: Full Description & Case Dossier -->
+            <div class="showcase-left-dossier">
+                <div class="dossier-header-strip">
+                    <span class="dossier-stamp">POLICE FILE • CONFIDENTIAL</span>
+                    <span class="badge-tag {{ case['difficulty']|lower }}">{{ case['difficulty'] }} DIFFICULTY</span>
+                </div>
+
+                <div class="dossier-case-number">{{ case['case_number'] }}</div>
+                <h3 class="dossier-case-title">{{ case['title'] }}</h3>
+                <div class="dossier-tagline">{{ case['tagline'] }}</div>
+
+                <!-- Case Key Facts Box -->
+                <div class="dossier-facts-grid">
+                    <div class="fact-item">
+                        <i class="fa-solid fa-location-dot fact-icon"></i>
+                        <div>
+                            <strong>Location</strong>
+                            <span>{{ case['location'] }}</span>
+                        </div>
+                    </div>
+                    <div class="fact-item">
+                        <i class="fa-solid fa-clock fact-icon"></i>
+                        <div>
+                            <strong>Incident Time</strong>
+                            <span>{{ case['incident_time'] }}</span>
+                        </div>
+                    </div>
+                    <div class="fact-item">
+                        <i class="fa-solid fa-user-secret fact-icon"></i>
+                        <div>
+                            <strong>Victim</strong>
+                            <span>{{ case['victim'] }} ({{ case['victim_role'] }})</span>
+                        </div>
+                    </div>
+                    <div class="fact-item">
+                        <i class="fa-solid fa-magnifying-glass fact-icon"></i>
+                        <div>
+                            <strong>Investigation Status</strong>
+                            <span style="color:var(--accent-emerald);">Ready for Detective</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Full Story Description (Comprehensive Incident Briefing) -->
+                <div class="dossier-section-block">
+                    <h4 class="section-title-sm"><i class="fa-solid fa-file-lines"></i> Full Case Briefing & Backstory</h4>
+                    <div class="dossier-narrative-text">
+                        <p>{{ case['briefing'] }}</p>
+                        <p style="margin-top:0.75rem; color:var(--text-main);">
+                            <strong>Detective's Summary:</strong> {{ case['incident_summary'] }}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Detained Suspects List -->
+                <div class="dossier-section-block">
+                    <h4 class="section-title-sm"><i class="fa-solid fa-users-viewfinder"></i> Detained Suspects (4 Persons of Interest)</h4>
+                    <div class="dossier-suspects-row">
+                        {% for s in case['suspects'] %}
+                        <div class="dossier-suspect-chip">
+                            <span class="suspect-emoji-icon">{{ loop.index == 1 and '🤵' or (loop.index == 2 and '🕵️‍♀️' or (loop.index == 3 and '💼' or '👑')) }}</span>
+                            <div class="suspect-chip-info">
+                                <span class="suspect-chip-name">{{ s['name'] }}</span>
+                                <span class="suspect-chip-role">{{ s['role'] }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Crime Scenes To Search -->
+                <div class="dossier-section-block">
+                    <h4 class="section-title-sm"><i class="fa-solid fa-door-open"></i> Crime Scenes To Inspect</h4>
+                    <div class="dossier-scenes-row">
+                        {% for sc in case['scenes'] %}
+                        <span class="scene-badge"><i class="fa-solid {{ sc['icon'] }}"></i> {{ sc['name'] }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Primary Call To Action Button -->
+                <div class="dossier-actions-bar">
+                    <a href="{{ url_for('case_view', case_id=case['id']) }}" class="btn-enter-case-investigation">
+                        <i class="fa-solid fa-handcuffs"></i>
+                        <span>BEGIN INVESTIGATION (PLAY CASE)</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
-            <div style="background:#12151b; padding:1.25rem; border-radius:8px; border-left:3px solid var(--accent-gold);">
-                <h4 style="color:#fff; font-size:1rem; margin-bottom:0.4rem;"><i class="fa-solid fa-comments"></i> 2. Talk to Suspects</h4>
-                <p style="font-size:0.85rem; color:var(--text-muted);">Ask the 4 suspects where they were and what they were doing at the time of the crime.</p>
+
+            <!-- RIGHT COLUMN: Relevant Motion Pictorial Scene Beside It -->
+            <div class="showcase-right-motion">
+                <div class="motion-scene-frame">
+                    <div class="scene-live-badge">
+                        <span class="live-dot"></span> MOTION SCENE: {{ case['case_number'] }}
+                    </div>
+
+                    <!-- Motion Pictorial Scene 1: Vault & Stolen Blue Diamond -->
+                    {% if case['id'] == 'case_sapphire' %}
+                    <div class="motion-pictorial-art scene-sapphire">
+                        <!-- Background Manor Vault with Arched Window -->
+                        <div class="sapphire-window-frame">
+                            <div class="rain-streaks-layer"></div>
+                            <div class="lightning-flash-layer"></div>
+                            <div class="window-mullions"></div>
+                        </div>
+
+                        <!-- Heavy Open Vault Safe Door -->
+                        <div class="vault-safe-door">
+                            <div class="safe-dial-gears"></div>
+                            <div class="safe-interior-glow"></div>
+                            <div class="safe-handle-makeup" title="Purple Makeup Smudge">
+                                <span class="clue-pin-dot"></span>
+                            </div>
+                        </div>
+
+                        <!-- Pedestal with Glowing Blue Diamond in Motion -->
+                        <div class="vault-pedestal">
+                            <div class="diamond-levitate-group">
+                                <div class="diamond-glow-aura"></div>
+                                <div class="sapphire-gemstone">
+                                    <svg viewBox="0 0 100 100" class="gemstone-svg">
+                                        <polygon points="50,5 90,30 75,90 25,90 10,30" fill="url(#sapphireGradient)" stroke="#60a5fa" stroke-width="2"/>
+                                        <polygon points="50,5 50,45 10,30" fill="rgba(255,255,255,0.25)"/>
+                                        <polygon points="50,5 90,30 50,45" fill="rgba(147,197,253,0.3)"/>
+                                        <polygon points="50,45 75,90 50,95" fill="rgba(37,99,235,0.4)"/>
+                                        <polygon points="50,45 25,90 50,95" fill="rgba(30,64,175,0.6)"/>
+                                        <defs>
+                                            <linearGradient id="sapphireGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%" stop-color="#93c5fd"/>
+                                                <stop offset="40%" stop-color="#3b82f6"/>
+                                                <stop offset="100%" stop-color="#1e3a8a"/>
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                </div>
+                                <div class="sparkle-star sp-1">✦</div>
+                                <div class="sparkle-star sp-2">✦</div>
+                                <div class="sparkle-star sp-3">✦</div>
+                            </div>
+                            <div class="pedestal-column"></div>
+                        </div>
+
+                        <!-- Laser Alarm Grids Moving -->
+                        <div class="laser-alarm-beam laser-1"></div>
+                        <div class="laser-alarm-beam laser-2"></div>
+
+                        <!-- Physical Clues in Motion Scene -->
+                        <div class="scene-clue-marker marker-lighter" title="Julian's Dropped Silver Lighter">
+                            <i class="fa-solid fa-fire-flame-simple"></i>
+                            <div class="smoke-wisp"></div>
+                        </div>
+                        <div class="scene-clue-marker marker-thread" title="Purple Silk Thread on Grate">
+                            <span class="silk-thread-fiber"></span>
+                        </div>
+                        <div class="scene-clue-marker marker-mud" title="Muddy Footprints">
+                            <i class="fa-solid fa-shoe-prints"></i>
+                        </div>
+
+                        <!-- Motion Caption -->
+                        <div class="motion-scene-caption">
+                            <strong><i class="fa-solid fa-gem"></i> The Vault Room at Midnight</strong>
+                            <span>Heavy safe left wide open. Rainstorm outside. The \$4M Blue Diamond vanished into the dark!</span>
+                        </div>
+                    </div>
+
+                    <!-- Motion Pictorial Scene 2: Poisoned Tea at Concert Hall -->
+                    {% elif case['id'] == 'case_sonata' %}
+                    <div class="motion-pictorial-art scene-sonata">
+                        <!-- Theater Velvet Drapery -->
+                        <div class="theater-curtain curtain-left"></div>
+                        <div class="theater-curtain curtain-right"></div>
+                        
+                        <!-- Flickering Chandelier -->
+                        <div class="chandeliers-row">
+                            <div class="chandelier-item">
+                                <div class="chandelier-glow"></div>
+                                <i class="fa-solid fa-lightbulb"></i>
+                            </div>
+                        </div>
+
+                        <!-- Spotlight Cone onto Conductor's Stand -->
+                        <div class="stage-spotlight-cone"></div>
+
+                        <!-- Conductor's Table & Poisoned Steaming Teacup -->
+                        <div class="stage-podium-table">
+                            <!-- Steaming Poison Teacup -->
+                            <div class="poison-tea-group">
+                                <!-- Swirling Toxic Poison Steam Rising in Motion -->
+                                <div class="toxic-steam-cloud steam-1"></div>
+                                <div class="toxic-steam-cloud steam-2"></div>
+                                <div class="toxic-steam-cloud steam-3"></div>
+                                <div class="toxic-bubbles">
+                                    <span class="bubble b1"></span>
+                                    <span class="bubble b2"></span>
+                                    <span class="bubble b3"></span>
+                                </div>
+                                <div class="teacup-porcelain">
+                                    <div class="cup-rim"></div>
+                                    <div class="cup-handle"></div>
+                                    <div class="poison-liquid"></div>
+                                </div>
+                                <div class="teacup-saucer"></div>
+                            </div>
+
+                            <!-- Overturned Violin & Fluttering Sheet Music -->
+                            <div class="stage-violin-prop">
+                                <i class="fa-solid fa-music music-note n1"></i>
+                                <i class="fa-solid fa-music music-note n2"></i>
+                                <div class="violin-shape">
+                                    <span class="broken-string"></span>
+                                </div>
+                                <div class="sheet-music-paper">
+                                    <div class="sheet-lines"></div>
+                                </div>
+                            </div>
+
+                            <!-- Oliver's Dropped Poison Locket -->
+                            <div class="scene-clue-marker marker-locket" title="Oliver's Silver Poison Locket">
+                                <i class="fa-solid fa-heart"></i>
+                                <span class="poison-powder-trace"></span>
+                            </div>
+                        </div>
+
+                        <!-- Motion Caption -->
+                        <div class="motion-scene-caption">
+                            <strong><i class="fa-solid fa-mug-hot"></i> Royal Concert Hall Center Stage</strong>
+                            <span>Deadly cyanide tea cup on the conductor's podium with eerie toxic vapors rising.</span>
+                        </div>
+                    </div>
+
+                    <!-- Motion Pictorial Scene 3: Cold Server Vault & Stolen Computer Chip -->
+                    {% else %}
+                    <div class="motion-pictorial-art scene-cyber">
+                        <!-- Server Racks with Blinking LED Arrays -->
+                        <div class="server-racks-backdrop">
+                            <div class="server-rack rack-left">
+                                <div class="rack-unit u1"><span class="led green blink"></span><span class="led cyan blink-fast"></span><span class="led amber"></span></div>
+                                <div class="rack-unit u2"><span class="led cyan blink"></span><span class="led green"></span><span class="led cyan blink-slow"></span></div>
+                                <div class="rack-unit u3"><span class="led green blink-fast"></span><span class="led amber blink"></span><span class="led cyan"></span></div>
+                                <div class="rack-unit u4"><span class="led red blink"></span><span class="led green"></span><span class="led cyan blink"></span></div>
+                            </div>
+                            <div class="server-rack rack-right">
+                                <div class="rack-unit u1"><span class="led cyan blink-fast"></span><span class="led green blink"></span><span class="led green"></span></div>
+                                <div class="rack-unit u2"><span class="led red blink"></span><span class="led amber"></span><span class="led cyan blink"></span></div>
+                                <div class="rack-unit u3"><span class="led green"></span><span class="led cyan blink"></span><span class="led green blink-fast"></span></div>
+                                <div class="rack-unit u4"><span class="led cyan blink"></span><span class="led amber blink"></span><span class="led green"></span></div>
+                            </div>
+                        </div>
+
+                        <!-- Cryogenic Nitrogen Mist Billowing on Floor -->
+                        <div class="cryo-fog-layer fog-layer-1"></div>
+                        <div class="cryo-fog-layer fog-layer-2"></div>
+
+                        <!-- Holographic Radar Sweep -->
+                        <div class="radar-scan-line"></div>
+
+                        <!-- Central Shattered Vault & Stolen Chip Socket -->
+                        <div class="chip-terminal-pedestal">
+                            <div class="shattered-glass-dome">
+                                <div class="glass-crack crack-1"></div>
+                                <div class="glass-crack crack-2"></div>
+                            </div>
+                            <!-- Empty Socket with Ripped Sparking Fiber Cables -->
+                            <div class="empty-chip-socket">
+                                <div class="socket-grid">
+                                    <div class="socket-pin"></div>
+                                    <div class="socket-pin"></div>
+                                    <div class="socket-pin"></div>
+                                    <div class="socket-pin"></div>
+                                </div>
+                                <!-- Spark Discharges in Motion -->
+                                <div class="electric-spark spark-1">⚡</div>
+                                <div class="electric-spark spark-2">⚡</div>
+                                <div class="torn-fiber-cable cable-1"></div>
+                                <div class="torn-fiber-cable cable-2"></div>
+                            </div>
+                        </div>
+
+                        <!-- Emergency Gas Release Switch & Clues -->
+                        <div class="scene-clue-marker marker-gas" title="Emergency Gas Switch Flipped">
+                            <div class="red-switch-box">
+                                <span class="switch-toggle active"></span>
+                            </div>
+                        </div>
+
+                        <!-- Motion Caption -->
+                        <div class="motion-scene-caption">
+                            <strong><i class="fa-solid fa-microchip"></i> Cold Server Vault at 2:15 AM</strong>
+                            <span>Sub-zero nitrogen fog, severed sparking circuits, and the classified AI chip stolen!</span>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Interactive Scene Zoom / Magnifying Glass Tooltip -->
+                    <div class="motion-scene-overlay-tools">
+                        <span class="scene-hint-pill"><i class="fa-solid fa-eye"></i> Live Animated Motion Scene</span>
+                        <a href="{{ url_for('case_view', case_id=case['id']) }}" class="btn-scene-examine">
+                            <i class="fa-solid fa-magnifying-glass"></i> Inspect Crime Scene
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div style="background:#12151b; padding:1.25rem; border-radius:8px; border-left:3px solid var(--accent-crimson);">
-                <h4 style="color:#fff; font-size:1rem; margin-bottom:0.4rem;"><i class="fa-solid fa-bolt"></i> 3. Catch Their Lies</h4>
-                <p style="font-size:0.85rem; color:var(--text-muted);">Pick a clue that proves a suspect is lying, and click "Catch in a Lie!" to break their story.</p>
+
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Overview Grid Cards for Quick Browsing -->
+    <div class="overview-section-wrap">
+        <h3 class="overview-heading"><i class="fa-solid fa-boxes-stacked"></i> All 3 Cases At A Glance</h3>
+        <div class="cases-container">
+            {% for case in cases %}
+            <div class="case-card" onclick="switchCaseShowcase('{{ case['id'] }}', {{ loop.index0 }})">
+                <div class="case-card-header">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span class="case-num-pill">{{ case['case_number'] }}</span>
+                        <span class="badge-tag {{ case['difficulty']|lower }}">{{ case['difficulty'] }}</span>
+                    </div>
+                    <h3 class="case-card-title">{{ case['title'] }}</h3>
+                    <div class="case-card-tagline">{{ case['tagline'] }}</div>
+                </div>
+
+                <div class="case-card-body">
+                    <div class="case-metadata-row">
+                        <div><strong>Victim:</strong> {{ case['victim'] }} ({{ case['victim_role'] }})</div>
+                        <div><strong>Location:</strong> {{ case['location'] }}</div>
+                        <div><strong>Time:</strong> {{ case['incident_time'] }}</div>
+                    </div>
+
+                    <div class="case-card-briefing">
+                        {{ case['briefing'] }}
+                    </div>
+                </div>
+
+                <div class="case-card-footer">
+                    <div style="display:flex; align-items:center; gap:0.5rem; font-size:0.8rem; color:var(--text-dim);">
+                        <i class="fa-solid fa-folder-open" style="color:var(--accent-gold);"></i>
+                        <span>Inspect Case Dossier</span>
+                    </div>
+                    <a href="{{ url_for('case_view', case_id=case['id']) }}" class="btn-open-dossier" onclick="event.stopPropagation();">
+                        <span>Play Case</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
-            <div style="background:#12151b; padding:1.25rem; border-radius:8px; border-left:3px solid var(--accent-emerald);">
-                <h4 style="color:#fff; font-size:1rem; margin-bottom:0.4rem;"><i class="fa-solid fa-handcuffs"></i> 4. Catch the Criminal</h4>
-                <p style="font-size:0.85rem; color:var(--text-muted);">Click "Catch the Thief (Accuse)" at the top right, pick the criminal and the clue, and win the game!</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- 4-Step How to Play Guide -->
+    <div style="max-width: 1200px; margin: 0 auto 5rem; padding: 0 1.5rem;">
+        <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:12px; padding:2rem;">
+            <h3 style="font-family:var(--font-title); color:#fff; font-size:1.3rem; margin-bottom:1.25rem; display:flex; align-items:center; gap:0.6rem;">
+                <i class="fa-solid fa-star" style="color:var(--accent-gold);"></i>
+                <span>How to Play (4 Simple Steps)</span>
+            </h3>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1.5rem;">
+                <div style="background:#12151b; padding:1.25rem; border-radius:8px; border-left:3px solid var(--accent-blue);">
+                    <h4 style="color:#fff; font-size:1rem; margin-bottom:0.4rem;"><i class="fa-solid fa-magnifying-glass"></i> 1. Look at Clues</h4>
+                    <p style="font-size:0.85rem; color:var(--text-muted);">Click on rooms and look at the clues found by police. Click "Inspect" to see secret details.</p>
+                </div>
+                <div style="background:#12151b; padding:1.25rem; border-radius:8px; border-left:3px solid var(--accent-gold);">
+                    <h4 style="color:#fff; font-size:1rem; margin-bottom:0.4rem;"><i class="fa-solid fa-comments"></i> 2. Talk to Suspects</h4>
+                    <p style="font-size:0.85rem; color:var(--text-muted);">Ask the 4 suspects where they were and what they were doing at the time of the crime.</p>
+                </div>
+                <div style="background:#12151b; padding:1.25rem; border-radius:8px; border-left:3px solid var(--accent-crimson);">
+                    <h4 style="color:#fff; font-size:1rem; margin-bottom:0.4rem;"><i class="fa-solid fa-bolt"></i> 3. Catch Their Lies</h4>
+                    <p style="font-size:0.85rem; color:var(--text-muted);">Pick a clue that proves a suspect is lying, and click "Catch in a Lie!" to break their story.</p>
+                </div>
+                <div style="background:#12151b; padding:1.25rem; border-radius:8px; border-left:3px solid var(--accent-emerald);">
+                    <h4 style="color:#fff; font-size:1rem; margin-bottom:0.4rem;"><i class="fa-solid fa-handcuffs"></i> 4. Catch the Criminal</h4>
+                    <p style="font-size:0.85rem; color:var(--text-muted);">Click "Catch the Thief (Accuse)" at the top right, pick the criminal and the clue, and win the game!</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 {% endblock %}

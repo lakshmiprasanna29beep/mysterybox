@@ -29,7 +29,11 @@
                 <span>Sound On</span>
                 <span class="sound-active-dot"></span>
             </button>
-            <a href="{{ url_for('index') }}" class="btn-action-sm">
+            <a href="{{ url_for('index') }}" id="navWelcomeBtn" class="btn-action-sm" title="Go to Welcome Screen">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <span>Intro</span>
+            </a>
+            <a href="{{ url_for('index') }}#cases" id="navCasesBtn" class="btn-action-sm" title="View All Cases">
                 <i class="fa-solid fa-folder-closed"></i>
                 <span>All Cases</span>
             </a>
