@@ -763,80 +763,83 @@ function cycleNextCase() {
     switchCaseShowcase(caseIdsList[currentShowcaseIndex], currentShowcaseIndex);
 }
 
-// Interactive Detective Magnifying Glass
+// Interactive Detective Magnifying Glass & Artwork Inspector
 function setupDetectiveSearchInteractive() {
-    const scene = document.getElementById('detectiveSearchScene');
+    const artFrame = document.getElementById('detectiveArtFrame');
+    const magnifier = document.getElementById('artInteractiveMagnifier');
+    const popup = document.getElementById('artCluePopup');
+    const popupText = document.getElementById('artCluePopupText');
+    const nodes = document.querySelectorAll('.evidence-node');
+
+    let popupTimeout = null;
+
+    if (artFrame && magnifier) {
+        artFrame.addEventListener('mousemove', (e) => {
+            const rect = artFrame.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            magnifier.style.left = `${x}px`;
+            magnifier.style.top = `${y}px`;
+        });
+
+        // Evidence node clicks
+        nodes.forEach(node => {
+            node.addEventListener('click', (e) => {
+                e.stopPropagation();
+                sounds.clueDiscovered();
+                const info = node.getAttribute('data-info') || "Evidence node inspected.";
+                if (popup && popupText) {
+                    popupText.textContent = info;
+                    popup.classList.add('active');
+                    clearTimeout(popupTimeout);
+                    popupTimeout = setTimeout(() => {
+                        popup.classList.remove('active');
+                    }, 3500);
+                }
+            });
+        });
+    }
+
+    // Support legacy floor clues if present
+    const legacyScene = document.getElementById('detectiveSearchScene');
     const armLens = document.getElementById('detectiveArmLens');
-    const popup = document.getElementById('sceneCluePopup');
-    const popupText = document.getElementById('sceneClueText');
+    const legacyPopup = document.getElementById('sceneCluePopup');
+    const legacyPopupText = document.getElementById('sceneClueText');
     const floorClues = document.querySelectorAll('.floor-clue');
 
-    if (!scene || !armLens) return;
+    if (legacyScene && armLens) {
+        legacyScene.addEventListener('mousemove', (e) => {
+            const rect = legacyScene.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+            const dx = mouseX - 140;
+            const dy = mouseY - 180;
+            let angle = Math.atan2(dy, dx) * (180 / Math.PI);
+            angle = Math.max(-20, Math.min(45, angle));
+            const distance = Math.min(520, Math.max(80, Math.sqrt(dx * dx + dy * dy)));
+            const translateX = (distance - 80) * 0.8;
+            armLens.style.animation = 'none';
+            armLens.style.transform = `rotate(${angle.toFixed(1)}deg) translate(${translateX.toFixed(1)}px, 0px)`;
+        });
 
-    let hoverTimeout = null;
+        legacyScene.addEventListener('mouseleave', () => {
+            armLens.style.animation = 'searchPatrol 7s ease-in-out infinite alternate';
+            armLens.style.transform = '';
+        });
 
-    // Interactive mouse exploration: aim the detective's magnifying lens
-    scene.addEventListener('mousemove', (e) => {
-        const rect = scene.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
-
-        // Shoulder origin inside detective figure
-        const shoulderX = 140;
-        const shoulderY = 180;
-
-        // Pause automatic CSS patrol keyframe
-        armLens.style.animation = 'none';
-
-        // Calculate angle and distance
-        const dx = mouseX - shoulderX;
-        const dy = mouseY - shoulderY;
-        let angle = Math.atan2(dy, dx) * (180 / Math.PI);
-        // Clamp angle
-        angle = Math.max(-20, Math.min(45, angle));
-        const distance = Math.min(520, Math.max(80, Math.sqrt(dx * dx + dy * dy)));
-
-        const translateX = (distance - 80) * 0.8;
-        armLens.style.transform = `rotate(${angle.toFixed(1)}deg) translate(${translateX.toFixed(1)}px, 0px)`;
-
-        // Check proximity to floor clues
         floorClues.forEach(clue => {
-            const clueRect = clue.getBoundingClientRect();
-            const clueCenterX = clueRect.left + clueRect.width / 2;
-            const clueCenterY = clueRect.top + clueRect.height / 2;
-            const distToCursor = Math.hypot(e.clientX - clueCenterX, e.clientY - clueCenterY);
-
-            if (distToCursor < 90) {
-                clue.classList.add('illuminated');
-            } else {
-                clue.classList.remove('illuminated');
-            }
+            clue.addEventListener('click', (e) => {
+                e.stopPropagation();
+                sounds.clueDiscovered();
+                const text = clue.getAttribute('data-clue') || "Evidence located!";
+                if (legacyPopup && legacyPopupText) {
+                    legacyPopupText.textContent = text;
+                    legacyPopup.classList.add('active');
+                    setTimeout(() => legacyPopup.classList.remove('active'), 2800);
+                }
+            });
         });
-    });
-
-    // When mouse leaves, resume smooth automatic patrol
-    scene.addEventListener('mouseleave', () => {
-        armLens.style.animation = 'searchPatrol 7s ease-in-out infinite alternate';
-        armLens.style.transform = '';
-        floorClues.forEach(clue => clue.classList.remove('illuminated'));
-    });
-
-    // Clicking clues inside scene
-    floorClues.forEach(clue => {
-        clue.addEventListener('click', (e) => {
-            e.stopPropagation();
-            sounds.clueDiscovered();
-            const text = clue.getAttribute('data-clue') || "Evidence located!";
-            if (popup && popupText) {
-                popupText.textContent = text;
-                popup.classList.add('active');
-                clearTimeout(hoverTimeout);
-                hoverTimeout = setTimeout(() => {
-                    popup.classList.remove('active');
-                }, 2800);
-            }
-        });
-    });
+    }
 }
 
 // Initialize Homepage

@@ -20,127 +20,56 @@
             Step into the shadows of unsolved crime. Search crime scenes for hidden clues, interrogate deceitful suspects, expose contradictory alibis, and crack the mystery before time runs out!
         </p>
 
-        <!-- Motion Pictorial Scene: Detective with Magnifying Lens Searching For Clues -->
-        <div class="detective-search-wrapper" id="detectiveSearchWrapper">
-            <div class="scene-ambient-fog"></div>
-            
-            <div class="detective-search-scene" id="detectiveSearchScene">
-                <!-- Wall & Floor Setting -->
-                <div class="scene-background-grid">
-                    <div class="noir-window">
-                        <div class="window-rain"></div>
-                    </div>
-                    <div class="scene-shelf">
-                        <i class="fa-solid fa-book-bookmark"></i>
-                        <i class="fa-solid fa-box-archive"></i>
-                        <i class="fa-solid fa-skull"></i>
-                    </div>
+        <!-- The Detective Artwork Showcase with Interactive Clue Nodes -->
+        <div class="detective-art-showcase" id="detectiveArtShowcase">
+            <div class="detective-art-frame" id="detectiveArtFrame">
+                <!-- User's Detective Image -->
+                <img src="{{ url_for('static', filename='images/detective_investigation.jpg') }}" 
+                     alt="Detective with magnifying lens searching for clues" 
+                     class="detective-main-art" 
+                     id="detectiveMainArt">
+
+                <!-- Interactive Evidence Nodes on Suspect Photos & Clues -->
+                <div class="evidence-node node-suspect-1" data-info="Suspect #1: Madame Yvonne (Art Dealer from Paris - 4:30 AM train ticket found)">
+                    <span class="node-dot"></span>
+                    <span class="node-label"><i class="fa-solid fa-user-secret"></i> Suspect Yvonne</span>
+                </div>
+                <div class="evidence-node node-suspect-2" data-info="Suspect #2: James the Butler (Cleaning wine bottles during party)">
+                    <span class="node-dot"></span>
+                    <span class="node-label"><i class="fa-solid fa-user-tie"></i> Butler James</span>
+                </div>
+                <div class="evidence-node node-suspect-3" data-info="Witness Statement: Inconsistent alibi during 11:30 PM to midnight window">
+                    <span class="node-dot"></span>
+                    <span class="node-label"><i class="fa-solid fa-file-lines"></i> Contradiction</span>
+                </div>
+                <div class="evidence-node node-clue-lens" data-info="Magnifying Glass: Traces of Valériane medicine & purple makeup on safe lock">
+                    <span class="node-dot active-lens"></span>
+                    <span class="node-label"><i class="fa-solid fa-magnifying-glass"></i> Key Clue</span>
+                </div>
+                <div class="evidence-node node-crime-scene" data-info="Crime Scene Blueprint: 11:45 PM Blackwood Manor safe vault breached">
+                    <span class="node-dot"></span>
+                    <span class="node-label"><i class="fa-solid fa-compass"></i> Crime Scene</span>
                 </div>
 
-                <!-- Crime Scene Floor with Clues that Light Up -->
-                <div class="crime-floor">
-                    <!-- Clue 1: Neon Cyan Fingerprint -->
-                    <div class="floor-clue clue-fingerprint" id="searchClue1" data-clue="Forensic Fingerprint Found!" title="Inspect Fingerprint">
-                        <svg viewBox="0 0 100 100" class="clue-svg fingerprint-svg">
-                            <path d="M50,15 A35,35 0 0,0 20,50 A30,30 0 0,0 35,75 M50,25 A25,25 0 0,0 30,50 A20,20 0 0,0 45,70 M50,35 A15,15 0 0,0 40,50 M60,50 A10,10 0 0,1 50,60 M70,50 A20,20 0 0,1 50,70 M80,50 A30,30 0 0,1 50,80" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-                        </svg>
-                        <span class="clue-label"><i class="fa-solid fa-fingerprint"></i> Fingerprint</span>
+                <!-- Interactive Magnifying Glass Spotlight Follower -->
+                <div class="art-interactive-magnifier" id="artInteractiveMagnifier">
+                    <div class="magnifier-rim">
+                        <div class="magnifier-glass"></div>
+                        <div class="magnifier-crosshair"></div>
                     </div>
-
-                    <!-- Clue 2: Muddy Footprints Trail -->
-                    <div class="floor-clue clue-footprints" id="searchClue2" data-clue="Muddy Shoe Tracks Located!" title="Inspect Footprints">
-                        <div class="footprint-step step-1"><i class="fa-solid fa-shoe-prints"></i></div>
-                        <div class="footprint-step step-2"><i class="fa-solid fa-shoe-prints"></i></div>
-                        <div class="footprint-step step-3"><i class="fa-solid fa-shoe-prints"></i></div>
-                        <span class="clue-label"><i class="fa-solid fa-shoe-prints"></i> Muddy Trail</span>
-                    </div>
-
-                    <!-- Clue 3: Sparkling Stolen Gem -->
-                    <div class="floor-clue clue-gem" id="searchClue3" data-clue="Valuable Stolen Jewel Fragment!" title="Inspect Gem">
-                        <div class="gem-sparkle-core">
-                            <i class="fa-solid fa-gem"></i>
-                            <div class="sparkle-flare s1">✦</div>
-                            <div class="sparkle-flare s2">✦</div>
-                        </div>
-                        <span class="clue-label"><i class="fa-solid fa-gem"></i> Rare Jewel</span>
-                    </div>
-
-                    <!-- Clue 4: Classified Letter / Ticket -->
-                    <div class="floor-clue clue-envelope" id="searchClue4" data-clue="Secret Train Ticket & Letter!" title="Inspect Document">
-                        <div class="envelope-item">
-                            <i class="fa-solid fa-envelope"></i>
-                            <span class="wax-seal">●</span>
-                        </div>
-                        <span class="clue-label"><i class="fa-solid fa-file-contract"></i> Evidence File</span>
-                    </div>
-
-                    <!-- Clue 5: Dropped Silver Lighter / Watch -->
-                    <div class="floor-clue clue-watch" id="searchClue5" data-clue="Dropped Clock Stopped at 11:45 PM!" title="Inspect Watch">
-                        <div class="watch-item">
-                            <i class="fa-solid fa-stopwatch"></i>
-                        </div>
-                        <span class="clue-label"><i class="fa-solid fa-clock"></i> 11:45 PM</span>
-                    </div>
+                    <div class="magnifier-beam"></div>
                 </div>
 
-                <!-- Detective Figure with Moving Magnifying Lens -->
-                <div class="detective-figure-group" id="detectiveFigure">
-                    <!-- Detective Silhouette / Body -->
-                    <div class="detective-body">
-                        <!-- Fedora Hat -->
-                        <div class="fedora-hat">
-                            <div class="hat-brim"></div>
-                            <div class="hat-crown">
-                                <div class="hat-band"></div>
-                            </div>
-                        </div>
-                        <!-- Head & Shadowed Face -->
-                        <div class="detective-head">
-                            <div class="collar-turnup-left"></div>
-                            <div class="collar-turnup-right"></div>
-                            <div class="cigar-glow"></div>
-                        </div>
-                        <!-- Trench Coat & Torso -->
-                        <div class="trench-coat">
-                            <div class="coat-belt"></div>
-                            <div class="coat-tails"></div>
-                        </div>
-                        <!-- Detective Legs -->
-                        <div class="detective-legs">
-                            <div class="leg left-leg"></div>
-                            <div class="leg right-leg"></div>
-                        </div>
-                    </div>
-
-                    <!-- Detective Arm Holding Magnifying Lens -->
-                    <div class="detective-arm-lens" id="detectiveArmLens">
-                        <div class="arm-sleeve"></div>
-                        <div class="brass-hand"></div>
-                        <!-- The Moving Magnifying Lens -->
-                        <div class="magnifying-lens" id="magnifyingLens">
-                            <div class="lens-handle"></div>
-                            <div class="lens-rim">
-                                <div class="lens-glass">
-                                    <div class="lens-glint"></div>
-                                    <div class="lens-crosshair"></div>
-                                </div>
-                            </div>
-                            <!-- Glowing Search Beam projected onto floor -->
-                            <div class="lens-beam" id="lensBeam"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Hover Tip / Scene Interactive Notice -->
-                <div class="scene-hint-badge">
+                <!-- Hover Instruction Badge -->
+                <div class="art-scene-badge">
                     <i class="fa-solid fa-wand-magic-sparkles"></i>
-                    <span>Move cursor across floor or watch the detective sweep for clues</span>
+                    <span>Move cursor across board or click evidence pins to inspect</span>
                 </div>
 
                 <!-- Clue Toast Popup inside Scene -->
-                <div id="sceneCluePopup" class="scene-clue-popup">
+                <div id="artCluePopup" class="art-clue-popup">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <span id="sceneClueText">Investigating crime scene...</span>
+                    <span id="artCluePopupText">Click any evidence pin to examine</span>
                 </div>
             </div>
         </div>
